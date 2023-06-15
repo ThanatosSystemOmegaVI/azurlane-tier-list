@@ -1,0 +1,40 @@
+html,
+body {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#header {
+	/* height: 50px; */
+}
+
+.headeritem {
+	height: 100%;
+}
+
+.headerimg {
+	height: 50px;
+}
+
+.headericon {
+	height: 30px;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+/* notification styling overide  */
+.vue-notification {
+	margin-right: 0 !important;
+}
+
+.notification-content {
+	font-size: 16px;
+	font-family: system-ui;
+}
