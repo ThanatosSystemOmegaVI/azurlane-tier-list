@@ -13,6 +13,11 @@ export const routes = [
 		component: () => import('@/components/login.vue')
 	},
 	{
+		name: 'ships',
+		path: '/ships',
+		component: () => import('@/components/ships.vue')
+	},
+	{
 		name: '404',
 		path: "/:pathMatch(.*)*",
 		component: Home

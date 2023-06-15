@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('faction'); // Iris Libre, Vichya Doominion 
             $table->string('Performace'); // {FP,HP,AA,SP,AVI,TRP}
             $table->string('note'); // personal note
+            $table->string('image'); // ship image
             $table->timestamps();
         });
     }

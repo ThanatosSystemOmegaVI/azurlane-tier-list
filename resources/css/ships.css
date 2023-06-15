@@ -1,0 +1,37 @@
+.shiplist {
+	height: 150px;
+}
+
+.addbutton {
+	height: 150px;
+	position: relative;
+	cursor: pointer;
+}
+
+.addbutton svg{
+	font-size: 100px;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+#addship{
+	position: absolute;
+	width: 80%;
+	height: fit-content;
+	max-height: 80vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #FFF;
+	padding: 10px;
+	box-shadow: 0 0 4px 1px rgb(151, 151, 151);
+	border-radius: 5px;
+}
