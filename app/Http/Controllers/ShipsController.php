@@ -3,64 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ships;
-use App\Http\Requests\StoreShipsRequest;
-use App\Http\Requests\UpdateShipsRequest;
+use Illuminate\Http\Request;
 
 class ShipsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function getships(Request $request)
     {
-        //
+        $ships = Ships::all();
+        if (!empty($ships)) {
+            $ships = $ships->toArray();
+        } else {
+            $ships = [];
+        }
+
+        return response()->json([
+            'ships' => $ships,
+        ]);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function addship(Request $request)
     {
-        //
-    }
+        $_POST = $request->all();
+        if (!Ships::where('name', $_POST['name'])->exists()) {
+            // save image locally
+            $filename = date("ymd") . rand(1111, 9999);
+            $extension = str_replace("data:image/", "", explode(";base64,", $_POST['image'])[0]);
+            $file = base64_decode(explode(";base64,", $_POST['image'])[1]);
+            if (!is_dir("../data/")) {
+                mkdir("../data");
+            }
+            file_put_contents("../data/$filename.$extension", $file);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreShipsRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ships $ships)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Ships $ships)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateShipsRequest $request, Ships $ships)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Ships $ships)
-    {
-        //
+            // insert ship
+            $insert = Ships::insert([
+                "image" => $filename . $extension, "name" => $_POST['name'], "type" => $_POST['type'], "rarity" => $_POST['rarity'],
+                "faction" => $_POST['faction'], "Performace" => json_encode($_POST['stats']), "note" => $_POST['note'],
+            ]);
+            if ($insert) {
+                return response()->json([
+                    'bool' => "true",
+                    'message' => "Ship " . $_POST['name'] . " Successfully added",
+                ]);
+            } else {
+                return response()->json([
+                    'bool' => "false",
+                    'message' => "something went wriong when adding " . $_POST['name'],
+                ]);
+            }
+        } else {
+            // already exists
+            return response()->json([
+                'bool' => "false",
+                'message' => "There already exists a ship with the name " . $_POST['name'],
+            ]);
+        }
     }
 }

@@ -9,18 +9,22 @@
 				<div class="form-outline mb-4">
 					<div class="input-group mb-3">
 						<span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-at" /></span>
-						<input type="email" id="email" class="form-control form-control-lg" placeholder="Email" v-model="email">
+						<input type="email" id="email" class="form-control form-control-lg" placeholder="Email"
+							v-model="email">
 					</div>
 				</div>
 				<!-- Password -->
 				<div class="form-outline mb-4">
 					<div class="input-group mb-3">
-						<span class="input-group-text" id="basic-addon1"><font-awesome-icon icon="fa-solid fa-lock" /></span>
-						<input type="password" id="password" class="form-control form-control-lg" placeholder="Password" v-model="password">
+						<span class="input-group-text" id="basic-addon1"><font-awesome-icon
+								icon="fa-solid fa-lock" /></span>
+						<input type="password" id="password" class="form-control form-control-lg" placeholder="Password"
+							v-model="password">
 					</div>
 				</div>
 				<!-- Submit -->
-				<button type="submit" class="btn btn-primary btn-lg btn-block w-100" @click="login()">Login <font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" /> </button>
+				<button type="submit" class="btn btn-primary btn-lg btn-block w-100" @click="login()">Login
+					<font-awesome-icon icon="fa-solid fa-arrow-right-to-bracket" /> </button>
 			</div>
 		</div>
 	</div>
@@ -42,25 +46,14 @@ export default {
 	methods: {
 		login: async function () {
 			const logindata = { username: this.email, password: this.password };
-			this.axios.post("/loginuser", logindata)
-				.then(response => {
-					if (response['data']['bool'] == "true") {
-						this.$notify({
-							// title: "Important message",
-							text: response['data']['message'],
-							type: 'success',
-							duration: 3000,
-						});
-						location.href = "/";
-					}else{
-						this.$notify({
-							// title: "Important message",
-							text: response['data']['message'],
-							type: 'warn',
-							duration: 3000,
-						});
-					}
-				});
+			this.axios.post("/loginuser", logindata).then(response => {
+				if (response['data']['bool'] == "true") {
+					this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
+					location.href = "/";
+				} else {
+					this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+				}
+			});
 		}
 	}
 }

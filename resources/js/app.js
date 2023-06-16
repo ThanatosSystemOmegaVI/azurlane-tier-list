@@ -21,9 +21,10 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus);
+library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus, faXmark);
 
 // vars
 const axiosInstance = axios.create({

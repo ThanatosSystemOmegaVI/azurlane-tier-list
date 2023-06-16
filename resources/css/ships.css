@@ -35,3 +35,9 @@
 	box-shadow: 0 0 4px 1px rgb(151, 151, 151);
 	border-radius: 5px;
 }
+
+.closepopup{
+	top: 0;
+	right: 10px;
+	cursor: pointer;
+}
