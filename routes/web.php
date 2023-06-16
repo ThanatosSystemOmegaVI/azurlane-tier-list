@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+// ============ GET ============
 
-// DEFAULT
-Route::get('{any?}', function ($any = null) {
-    return view('welcome');
-})->where('any', '.*');
-
-// GET
+// user
 Route::get('/', function () {
     return view('welcome');
 });
 
-// POST
+// ships
+Route::get('/getimagedata/{type}/{name}', [ShipsController::class, 'getImage']);
+
+
+// ============ POST ============
 
 // user
 Route::post('/loginuser', [UsersController::class, 'getUser']);
@@ -36,3 +36,8 @@ Route::post('/getships', [ShipsController::class, 'getships']);
 Route::post('/addship', [ShipsController::class, 'addship']);
 
 // Route::post('user/{id}', ShowProfile::class);
+
+// ============ DEFAULT ============
+Route::get('{any?}', function ($any = null) {
+    return view('welcome');
+})->where('any', '.*');

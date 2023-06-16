@@ -1,24 +1,36 @@
 .shiplist {
-	height: 150px;
+	height: 155px;
+	overflow-y: hidden;
+	overflow-x: auto;
+	margin-bottom: 0.5em;
 }
 
-.addbutton {
-	height: 150px;
-	position: relative;
-	cursor: pointer;
+.addbutton {}
+
+.button-default {
+	color: white;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 5px 10px;
+	margin: 10px;
+	display: inline-block;
+	width: 95%;
 }
 
-.addbutton svg{
-	font-size: 100px;
-	margin: auto;
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
+.button-slanted {
+	-ms-transform: skewX(-20deg);
+	-webkit-transform: skewX(-20deg);
+	transform: skewX(-20deg);
 }
 
-#addship{
+.button-slanted-content {
+	-ms-transform: skewX(20deg);
+	-webkit-transform: skewX(20deg);
+	transform: skewX(20deg);
+	display: inline-block;
+}
+
+#addship {
 	position: absolute;
 	width: 80%;
 	height: fit-content;
@@ -36,8 +48,65 @@
 	border-radius: 5px;
 }
 
-.closepopup{
+.closepopup {
 	top: 0;
 	right: 10px;
 	cursor: pointer;
+}
+
+.shipborder {
+	border: 2px solid #d4d4d4;
+	border-top: 10px solid #d4d4d4;
+	border-bottom: 10px solid #d4d4d4;
+	width: fit-content;
+	height: 150px;
+	border-radius: 10px;
+}
+
+.shipborder.Common {
+	border-color: #9ca2ad !important;
+}
+
+.shipborder.Rare {
+	border-color: #5aa2ef !important;
+}
+
+.shipborder.Elite {
+	border-color: #8c75ff !important;
+}
+
+.shipborder.Super.rare {
+	border-color: #f7dc56 !important;
+}
+
+.shipborder.Ultra {
+	border-color: #94e7b5 !important;
+}
+
+.shipimage {
+	height: 100%;
+	width: 100px;
+	object-fit: cover;
+}
+
+.shipicon {
+	top: 0px;
+	left: 0px;
+	height: 18px;
+}
+
+.shipname {
+	position: absolute;
+	bottom: 5px;
+	text-align: center;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #FFF;
+	font-weight: bold;
+	letter-spacing: 1px;
+	font-size: 13px;
+	padding: 0 7px;
+	text-overflow: ellipsis;
+	text-wrap: nowrap;
+	overflow: hidden;
 }

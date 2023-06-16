@@ -9,19 +9,24 @@
 			<!-- List of unsorted ships + add ship button -->
 			<div class="col-12">
 				<div class="row">
-					<!-- list of ships -->
-					<div class="col-xl-11">
-						<div id="shiplist" class="shiplist border border-primary rounded-1 overflow-auto">
-							<div class="ship" v-for="ship in ships">
-								<img v-bind:src="'../../data/'+ship.image">
-								<p>{{ ship }}</p>
-							</div>
+					<!-- add ship button -->
+					<div id="addbutton" class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative" @click="addship = !addship">
+						<div class="button-default button-slanted bg-secondary text-white fw-bold pointer">
+							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add Ship</span>
 						</div>
 					</div>
-					<!-- add ship button -->
-					<div class="col-xl-1">
-						<div class="addbutton border border-primary rounded-1 bg-primary text-warning" @click="addship = !addship">
-							<font-awesome-icon icon="fa-solid fa-plus" />
+				</div>
+				<div class="row">
+					<!-- list of ships -->
+					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						<div id="shiplist" class="shiplist d-flex gap-2">
+							<div class="ship" v-for="ship in ships">
+								<div v-bind:class="'d-flex flex-column position-relative shipborder '+ship.rarity">
+									<img v-bind:src="'/getimagedata/ships/'+ship.image" class="shipimage">
+									<span class="shipname">{{ ship.name }}</span>
+									<img v-bind:src="'/getimagedata/shiptypes/'+ship.type+'.png'" class="position-absolute shipicon">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -48,7 +53,7 @@
 						</div>
 						<div class="col-6">
 							<input type="text" id="name" class="form-control mb-2" v-model="newShip.name"
-								placeholder="shipname">
+								placeholder="Ship name">
 						</div>
 					</div>
 					<div class="row">
@@ -77,31 +82,42 @@
 						<div class="col-6">
 							<div class="row">
 								<div class="col-6">
-									<input type="text" id="FP" v-model="newShip.stats.FP" class="form-control mb-1"
-										placeholder="FP">
-									<input type="text" id="HP" v-model="newShip.stats.HP" class="form-control mb-1"
-										placeholder="HP">
-									<input type="text" id="AA" v-model="newShip.stats.AA" class="form-control"
-										placeholder="AA">
+									<div class="input-group mb-1">  
+										<span class="input-group-text" id="basic-addon1">FP</span>
+										<input type="text" id="FP" v-model="newShip.stats.FP" class="form-control" placeholder="FP">
+									</div>
+									<div class="input-group mb-1">  
+										<span class="input-group-text" id="basic-addon1">HP</span>
+										<input type="text" id="HP" v-model="newShip.stats.HP" class="form-control" placeholder="HP">
+									</div>
+									<div class="input-group">  
+										<span class="input-group-text" id="basic-addon1">AA</span>
+										<input type="text" id="AA" v-model="newShip.stats.AA" class="form-control" placeholder="AA">
+									</div>
 								</div>
 								<div class="col-6">
-									<input type="text" id="SP" v-model="newShip.stats.SP" class="form-control mb-1"
-										placeholder="SP">
-									<input type="text" id="AVI" v-model="newShip.stats.AVI" class="form-control mb-1"
-										placeholder="AVI">
-									<input type="text" id="TRP" v-model="newShip.stats.TRP" class="form-control"
-										placeholder="TRP">
+									<div class="input-group mb-1">  
+										<span class="input-group-text" id="basic-addon1">&nbsp;SP</span>
+										<input type="text" id="SP" v-model="newShip.stats.SP" class="form-control" placeholder="SP">
+									</div>
+									<div class="input-group mb-1">  
+										<span class="input-group-text" id="basic-addon1">AVI</span>
+										<input type="text" id="AVI" v-model="newShip.stats.AVI" class="form-control" placeholder="AVI">
+									</div>
+									<div class="input-group">  
+										<span class="input-group-text" id="basic-addon1">TRP</span>
+										<input type="text" id="TRP" v-model="newShip.stats.TRP" class="form-control" placeholder="TRP">
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-6">
-							<textarea id="note" class="form-control h-100" v-model="newShip.note"
-								placeholder="Note"></textarea>
+							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<button class="btn button btn-primary w-100 mt-2" @click="addShip()">Add ship</button>
+							<button class="btn button btn-primary w-100 mt-2" @click="addShip()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
 						</div>
 					</div>
 				</div>
