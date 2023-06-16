@@ -5,8 +5,6 @@
 	margin-bottom: 0.5em;
 }
 
-.addbutton {}
-
 .button-default {
 	color: white;
 	text-align: center;
@@ -65,22 +63,27 @@
 
 .shipborder.Common {
 	border-color: #9ca2ad !important;
+	background-color: #deeaff;
 }
 
 .shipborder.Rare {
 	border-color: #5aa2ef !important;
+	background-color: #cae4ff;
 }
 
 .shipborder.Elite {
 	border-color: #8c75ff !important;
+	background-color: #ded7ff;
 }
 
 .shipborder.Super.rare {
 	border-color: #f7dc56 !important;
+	background-color: #fff9d9;
 }
 
 .shipborder.Ultra {
 	border-color: #94e7b5 !important;
+	background-color: #cffde2;
 }
 
 .shipimage {
