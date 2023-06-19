@@ -144,6 +144,17 @@
 	z-index: 9999999999;
 }
 
+/* DELETE BUTTON */
+.deleteShip {
+	position: absolute;
+	right: 30px;
+	top: 2px;
+	color: #a10000;
+	font-size: 20px;
+	cursor: pointer;
+	z-index: 9999999999;
+}
+
 /* preview image in add/edit popup */
 .newshipimage {
 	width: var(--shipImageWidth);

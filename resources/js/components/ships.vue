@@ -10,9 +10,12 @@
 			<div class="col-12">
 				<div class="row">
 					<!-- add ship button -->
-					<div id="addbutton" class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative" @click="addShip()">
+					<div id="addbutton"
+						class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative"
+						@click="addShip()">
 						<div class="button-default button-slanted bg-secondary text-white fw-bold pointer">
-							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add Ship</span>
+							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add
+								Ship</span>
 						</div>
 					</div>
 				</div>
@@ -21,11 +24,13 @@
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
 							<div class="ship" v-for="ship in ships">
-								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" v-bind:data="ship.id" />
+								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
+								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
+										class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
@@ -42,9 +47,10 @@
 					<!-- title -->
 					<div class="row">
 						<div class="col-12">
-							<h2 class="text-center text-primary" v-if="this.editship == 0">Add ship</h2>
+							<h2 class="text-center text-primary" v-if="this.editShipID == 0">Add ship</h2>
 							<h2 class="text-center text-primary" v-else>Edit ship</h2>
-							<font-awesome-icon icon="fa-solid fa-xmark" class="position-absolute closepopup text-primary fs-1" @click="this.showAddship = false" />
+							<font-awesome-icon icon="fa-solid fa-xmark"
+								class="position-absolute closepopup text-primary fs-1" @click="this.showAddship = false" />
 						</div>
 					</div>
 					<!-- inputs -->
@@ -52,10 +58,12 @@
 					<img v-else v-bind:src="'/getimagedata/ships/' + this.newShip.image" class="newshipimage">
 					<div class="row">
 						<div class="col-6">
-							<input type="file" id="image" class="form-control mb-2" @change="onFileChanged($event)" accept="image/*" placeholder="shipimage">
+							<input type="file" id="image" class="form-control mb-2" @change="onFileChanged($event)"
+								accept="image/*" placeholder="shipimage">
 						</div>
 						<div class="col-6">
-							<input type="text" id="name" class="form-control mb-2" v-model="newShip.name" placeholder="Ship name">
+							<input type="text" id="name" class="form-control mb-2" v-model="newShip.name"
+								placeholder="Ship name">
 						</div>
 					</div>
 					<div class="row">
@@ -86,41 +94,50 @@
 								<div class="col-6">
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">FP</span>
-										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control" placeholder="FP">
+										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control"
+											placeholder="FP">
 									</div>
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">HP</span>
-										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control" placeholder="HP">
+										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control"
+											placeholder="HP">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">AA</span>
-										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control" placeholder="AA">
+										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control"
+											placeholder="AA">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">&nbsp;SP</span>
-										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control" placeholder="SP">
+										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control"
+											placeholder="SP">
 									</div>
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">AVI</span>
-										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control" placeholder="AVI">
+										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control"
+											placeholder="AVI">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">TRP</span>
-										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control" placeholder="TRP">
+										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control"
+											placeholder="TRP">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-6">
-							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
+							<textarea id="note" class="form-control h-100" v-model="newShip.note"
+								placeholder="Note"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<button class="btn button btn-primary w-100 mt-2" v-if="this.editship == 0" @click="addShipSubmit()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
-							<button class="btn button btn-primary w-100 mt-2" v-else @click="editShipSubmit()"><font-awesome-icon icon="fa-solid fa-pen" /> Edit ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-if="this.editShipID == 0"
+								@click="addShipSubmit()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-else
+								@click="editShipSubmit()"><font-awesome-icon icon="fa-solid fa-pen" /> Edit ship</button>
 						</div>
 					</div>
 				</div>
@@ -165,34 +182,22 @@ export default {
 	},
 	created() {
 		// get all ships from the database
-		let _this = this;
-		this.axios.post("/getships", {}).then(response => {
-			if (response['data']['ships'].length > 0) {
-				_this.ships = response['data']['ships'];
-			} else {
-				_this.ships = response['data']['ships'];
-			}
-		});
+		this.getShips();
 	},
 	methods: {
-		// add ship to database
-		editShip: function (ship) {
+		addShip: function () {
 			this.refreshInputs();
-			if (ship !== undefined && ship !== null && ship.id != "0") {
-				this.showAddship = true;
-				this.editShipID = ship.id;
-				ship.Performace = JSON.parse(ship.Performace);
-				this.newShip = Object.assign({}, ship);
-			}
+			this.showAddship = true;
 		},
 
-		editShipSubmit: function () {
+		addShipSubmit: function () {
 			if (this.newShip.image !== "" && this.newShip.name !== "" && this.newShip.type !== "" && this.newShip.rarity !== "" && this.newShip.faction !== "") {
 				//ajax
-				this.axios.post("/editship", this.newShip).then(response => {
+				this.axios.post("/addship", this.newShip).then(response => {
 					if (response['data']['bool'] == "true") {
 						this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
-						location.reload();
+						this.getShips();
+						this.showAddship = false;
 					} else {
 						this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
 					}
@@ -211,18 +216,51 @@ export default {
 			}
 		},
 
-		addShip: function () {
-			this.refreshInputs();
-			this.showAddship = true;
+		// Edit ship in database
+		editShip: function (ship) {
+			if (ship !== undefined && ship !== null && ship.id != "0") {
+				this.refreshInputs();
+				this.showAddship = true;
+				this.editShipID = ship.id;
+				ship.Performace = JSON.parse(ship.Performace);
+				this.newShip = Object.assign({}, ship);
+			}
 		},
 
-		addShipSubmit: function () {
+		// Delete ship from database
+		deleteShip: function (ship) {
+			if (ship !== undefined && ship !== null && ship.id != "0") {
+				this.$swal({
+					title: "Deletion",
+					text: "Are you sure You want to delete: " + ship.name + "?",
+					type: "warning",
+					showCancelButton: true,
+					cancelButtonText: "No, wait!",
+					confirmButtonColor: "#a10000",
+					confirmButtonText: "Yes, Delete it!"
+				}).then((result) => {
+					if (result.value) {
+						this.axios.post("/deleteship", ship).then(response => {
+							if (response['data']['bool'] == "true") {
+								this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
+								this.getShips();
+							} else {
+								this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+							}
+						});
+					}
+				});
+			}
+		},
+
+		editShipSubmit: function () {
 			if (this.newShip.image !== "" && this.newShip.name !== "" && this.newShip.type !== "" && this.newShip.rarity !== "" && this.newShip.faction !== "") {
 				//ajax
-				this.axios.post("/addship", this.newShip).then(response => {
+				this.axios.post("/editship", this.newShip).then(response => {
 					if (response['data']['bool'] == "true") {
 						this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
-						location.reload();
+						this.getShips();
+						this.showAddship = false;
 					} else {
 						this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
 					}
@@ -254,7 +292,18 @@ export default {
 			}
 		},
 
+		getShips: function () {
+			this.axios.post("/getships", {}).then(response => {
+				if (response['data']['ships'].length > 0) {
+					this.ships = response['data']['ships'];
+				} else {
+					this.ships = response['data']['ships'];
+				}
+			});
+		},
+
 		refreshInputs: function () {
+			this.editShipID = 0;
 			this.newShip = {
 				image: "",
 				name: "",
