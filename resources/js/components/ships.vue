@@ -1,15 +1,10 @@
 <template>
 	<section class="p-4">
 		<div class="row">
-			<!-- Title -->
+			<!-- ------------------------------------- List of unsorted ships + add ship button ------------------------------------- -->
 			<div class="col-12">
-				<h1 class="text-center text-primary">Tier list edit</h1>
-			</div>
-
-			<!-- List of unsorted ships + add ship button -->
-			<div class="col-12">
+				<!-- ------------------------------------- Add ship button ------------------------------------- -->
 				<div class="row">
-					<!-- add ship button -->
 					<div id="addbutton"
 						class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative"
 						@click="addShip()">
@@ -19,11 +14,11 @@
 						</div>
 					</div>
 				</div>
+				<!-- -------------------------------------  List of unsorted ships ------------------------------------- -->
 				<div class="row">
-					<!-- list of ships -->
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
-							<div class="ship" v-for="ship in ships">
+							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship)">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
 								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
@@ -38,10 +33,29 @@
 				</div>
 			</div>
 
-			<!-- tier list with draggable items -->
-			<div class="col-12"></div>
+			<!-- ------------------------------------- tier list with draggable items  ------------------------------------- -->
+			<div class="col-12">
+				<div class="tiers">
+					<div class="d-flex flex-row w-100" v-for="tier in tieritems" v-bind:style="'background-color:' + tier.color">
+						<!-- tier name -->
+						<div class="tiername border-end border-dark">
+							<p class="m-0 p-2 fs-1">{{ tier.name }}</p>
+						</div>
+						<!-- tier data -->
+						<div class="w-100 tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)" @dragover.prevent @dragenter.prevent>
+							<div class="ship" v-for="ship in tier.items" draggable @dragstart="startDrag($event, ship)">
+								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
+									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
+									<span class="shipname">{{ ship.name }}</span>
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<!-- ship adding popup -->
+			<!-- ------------------------------------- ship adding popup ------------------------------------- -->
 			<div class="col-12">
 				<div class="popup" id="addship" v-if="showAddship">
 					<!-- title -->
@@ -150,8 +164,22 @@
 import '../../css/ships.css';
 export default {
 	name: "ships",
+	computed: {
+
+	},
 	data() {
 		return {
+			// tierlist 
+			drag: false,
+			tieritems: {
+				"S": { items: [], name: "S", color: "#ff7f7f" },
+				"A": { items: [], name: "A", color: "#ffbf7f" },
+				"B": { items: [], name: "B", color: "#ffdf7f" },
+				"C": { items: [], name: "C", color: "#ffff7f" },
+				"D": { items: [], name: "D", color: "#bfff7f" },
+				"E": { items: [], name: "E", color: "#7fff7f" },
+				"F": { items: [], name: "F", color: "#229fa3" },
+			},
 			// ships list
 			ships: {},
 			// toggle add ship popup 
@@ -180,11 +208,31 @@ export default {
 			}
 		}
 	},
+
 	created() {
 		// get all ships from the database
 		this.getShips();
 	},
+
 	methods: {
+		startDrag(evt, item) {
+			evt.dataTransfer.dropEffect = 'move'
+			evt.dataTransfer.effectAllowed = 'move'
+			evt.dataTransfer.setData('shipID', item.id)
+		},
+
+		onDrop(evt, list) {
+			const shipID = evt.dataTransfer.getData('shipID')
+			// Find correct ship
+			const shipIndex = this.ships.findIndex((x) => x.id == shipID)
+			// Place item in correct tierlist
+			this.tieritems[list].items.push(this.ships[shipIndex]);
+			console.log(this.tieritems[list].items[0])
+			// this.tieritems[list].items.set(0, 0, this.ships[shipIndex]);
+			// Delete ship from original list
+			// delete this.ships[shipIndex];
+		},
+
 		addShip: function () {
 			this.refreshInputs();
 			this.showAddship = true;
@@ -294,11 +342,7 @@ export default {
 
 		getShips: function () {
 			this.axios.post("/getships", {}).then(response => {
-				if (response['data']['ships'].length > 0) {
-					this.ships = response['data']['ships'];
-				} else {
-					this.ships = response['data']['ships'];
-				}
+				this.ships = response['data']['ships'];
 			});
 		},
 

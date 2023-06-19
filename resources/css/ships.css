@@ -3,7 +3,7 @@
 	--shipImageheight: 150px;
 }
 
-/* ADD SHIP BUTTON */
+/* ============= ADD SHIP BUTTON ============= */
 .button-default {
 	color: white;
 	text-align: center;
@@ -46,7 +46,7 @@
 	z-index: 9999999999999999;
 }
 
-/* SHIPS IN SHIP LIST */
+/* ============= SHIPS IN SHIP LIST ============= */
 .shiplist {
 	height: 155px;
 	overflow-y: hidden;
@@ -167,6 +167,17 @@
 	top: 0;
 	right: 10px;
 	cursor: pointer;
+}
+
+/* ============= TIER LIST ============= */
+.tiername{
+	width: 100px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.tiername, .tierdata{
+	height: var(--shipImageheight);
 }
 
 @keyframes TransitioningBackground {
