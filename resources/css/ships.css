@@ -1,10 +1,9 @@
-.shiplist {
-	height: 155px;
-	overflow-y: hidden;
-	overflow-x: auto;
-	margin-bottom: 0.5em;
+:root {
+	--shipImageWidth: 100px;
+	--shipImageheight: 150px;
 }
 
+/* ADD SHIP BUTTON */
 .button-default {
 	color: white;
 	text-align: center;
@@ -47,19 +46,37 @@
 	z-index: 9999999999999999;
 }
 
-.closepopup {
-	top: 0;
-	right: 10px;
-	cursor: pointer;
+/* SHIPS IN SHIP LIST */
+.shiplist {
+	height: 155px;
+	overflow-y: hidden;
+	overflow-x: auto;
+	margin-bottom: 0.5em;
 }
 
+.ship {
+	position: relative;
+}
+
+/* border color + shine */
 .shipborder {
 	border: 2px solid #d4d4d4;
 	border-top: 10px solid #d4d4d4;
 	border-bottom: 10px solid #d4d4d4;
 	width: fit-content;
-	height: 150px;
-	border-radius: 10px;
+	height: var(--shipImageheight);
+	overflow: hidden;
+}
+
+.shipborder::before {
+	content: '';
+	display: block;
+	position: absolute;
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.3)), color-stop(99%, rgba(128, 186, 232, 0)), color-stop(100%, rgba(125, 185, 232, 0)));
+	width: 60px;
+	height: 100%;
+	top: 0;
+	animation: TransitioningBackground 10s ease infinite;
 }
 
 .shipborder.Common {
@@ -83,13 +100,14 @@
 }
 
 .shipborder.Ultra {
-	border-color: #94e7b5 !important;
-	background-color: #cffde2;
+	border-image: linear-gradient(to bottom right, #ffe2a5 0%, #ffbfa1 15%, #ff95ec 30%, #b497ff 50%, #7de6a8 100%);
+	border-image-slice: 1;
 }
 
+/* Ship details */
 .shipimage {
-	height: 100%;
-	width: 100px;
+	height: var(--shipImageheight);
+	width: var(--shipImageWidth);
 	object-fit: cover;
 }
 
@@ -115,6 +133,7 @@
 	overflow: hidden;
 }
 
+/* EDIT BUTTON */
 .editShip {
 	position: absolute;
 	right: 2px;
@@ -125,8 +144,30 @@
 	z-index: 9999999999;
 }
 
+/* preview image in add/edit popup */
 .newshipimage {
-	width: 100px;
-	height: 150px;
+	width: var(--shipImageWidth);
+	height: var(--shipImageheight);
 	object-fit: cover;
+}
+
+/* CLOSE ADD/EDIT POPUP */
+.closepopup {
+	top: 0;
+	right: 10px;
+	cursor: pointer;
+}
+
+@keyframes TransitioningBackground {
+	0% {
+		background-position: 1% 0%;
+		transform: translateX(calc(var(--shipImageWidth) - 300px)) skewX(-25deg);
+		transition: 1s;
+	}
+
+	100% {
+		background-position: 1% 0%;
+		transform: translateX(calc(var(--shipImageWidth) + 300px)) skewX(-25deg);
+		transition: 1s;
+	}
 }
