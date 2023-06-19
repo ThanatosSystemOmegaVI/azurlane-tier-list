@@ -24,13 +24,11 @@
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
 							<div class="ship" v-for="ship in ships">
+								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" v-bind:data="ship.id" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
-									<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)"
-										v-bind:data="ship.id" />
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
-										class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
