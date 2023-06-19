@@ -10,9 +10,12 @@
 			<div class="col-12">
 				<div class="row">
 					<!-- add ship button -->
-					<div id="addbutton" class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative" @click="addship = !addship">
+					<div id="addbutton"
+						class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative"
+						@click="addship = !addship">
 						<div class="button-default button-slanted bg-secondary text-white fw-bold pointer">
-							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add Ship</span>
+							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add
+								Ship</span>
 						</div>
 					</div>
 				</div>
@@ -21,10 +24,13 @@
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
 							<div class="ship" v-for="ship in ships">
-								<div v-bind:class="'d-flex flex-column position-relative shipborder '+ship.rarity">
-									<img v-bind:src="'/getimagedata/ships/'+ship.image" class="shipimage">
+								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
+									<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)"
+										v-bind:data="ship.id" />
+									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/'+ship.type+'.png'" class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
+										class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
@@ -41,11 +47,15 @@
 					<!-- title -->
 					<div class="row">
 						<div class="col-12">
-							<h2 class="text-center text-primary">Add ship</h2>
-							<font-awesome-icon icon="fa-solid fa-xmark" class="position-absolute closepopup text-primary fs-1" @click="addship = !addship"/>
+							<h2 class="text-center text-primary" v-if="this.editship == 0">Add ship</h2>
+							<h2 class="text-center text-primary" v-else>Edit ship</h2>
+							<font-awesome-icon icon="fa-solid fa-xmark"
+								class="position-absolute closepopup text-primary fs-1" @click="addship = !addship" />
 						</div>
 					</div>
 					<!-- inputs -->
+					<img v-if="this.newShip.image.includes('base64')" v-bind:src="this.newShip.image" class="newshipimage">
+					<img v-else v-bind:src="'/getimagedata/ships/' + this.newShip.image" class="newshipimage">
 					<div class="row">
 						<div class="col-6">
 							<input type="file" id="image" class="form-control mb-2" @change="onFileChanged($event)"
@@ -82,42 +92,52 @@
 						<div class="col-6">
 							<div class="row">
 								<div class="col-6">
-									<div class="input-group mb-1">  
+									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">FP</span>
-										<input type="text" id="FP" v-model="newShip.stats.FP" class="form-control" placeholder="FP">
+										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control"
+											placeholder="FP">
 									</div>
-									<div class="input-group mb-1">  
+									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">HP</span>
-										<input type="text" id="HP" v-model="newShip.stats.HP" class="form-control" placeholder="HP">
+										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control"
+											placeholder="HP">
 									</div>
-									<div class="input-group">  
+									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">AA</span>
-										<input type="text" id="AA" v-model="newShip.stats.AA" class="form-control" placeholder="AA">
+										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control"
+											placeholder="AA">
 									</div>
 								</div>
 								<div class="col-6">
-									<div class="input-group mb-1">  
+									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">&nbsp;SP</span>
-										<input type="text" id="SP" v-model="newShip.stats.SP" class="form-control" placeholder="SP">
+										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control"
+											placeholder="SP">
 									</div>
-									<div class="input-group mb-1">  
+									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">AVI</span>
-										<input type="text" id="AVI" v-model="newShip.stats.AVI" class="form-control" placeholder="AVI">
+										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control"
+											placeholder="AVI">
 									</div>
-									<div class="input-group">  
+									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">TRP</span>
-										<input type="text" id="TRP" v-model="newShip.stats.TRP" class="form-control" placeholder="TRP">
+										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control"
+											placeholder="TRP">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-6">
-							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
+							<textarea id="note" class="form-control h-100" v-model="newShip.note"
+								placeholder="Note"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<button class="btn button btn-primary w-100 mt-2" @click="addShip()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-if="this.editship == 0"
+								@click="addShip()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-else
+								@click="editShipSubmit()"><font-awesome-icon icon="fa-solid fa-pen" /> Edit ship</button>
 						</div>
 					</div>
 				</div>
@@ -133,12 +153,13 @@ export default {
 	data() {
 		return {
 			// ships list
-			ships:{},
+			ships: {},
 			// toggle add ship popup 
 			addship: false,
+			editship: 0,
 			// add ship select data
 			shipRarity: ['Common', 'Rare', 'Elite', 'Super rare', 'Ultra'],
-			shipType: ['DD', 'CL', 'CA', 'BB', 'CV', 'AR', 'SS', 'Misc'],
+			shipType: ['DD', 'CL', 'CA', 'BB', 'CB', 'CV', 'AR', 'SS', 'Misc'],
 			shipFaction: ['Iris Libre', 'Vichya Dominion'],
 			// new ship data 
 			newShip: {
@@ -148,7 +169,7 @@ export default {
 				rarity: "",
 				faction: "",
 				note: "",
-				stats: {
+				Performace: {
 					FP: null,
 					HP: null,
 					AA: null,
@@ -172,6 +193,40 @@ export default {
 	},
 	methods: {
 		// add ship to database
+		editShip: function (ship) {
+			if (ship !== undefined && ship !== null && ship.id != "0") {
+				this.addship = true;
+				this.editship = ship.id;
+				ship.Performace = JSON.parse(ship.Performace);
+				this.newShip = Object.assign({}, ship);
+			}
+		},
+
+		editShipSubmit: function () {
+			if (this.newShip.image !== "" && this.newShip.name !== "" && this.newShip.type !== "" && this.newShip.rarity !== "" && this.newShip.faction !== "") {
+				//ajax
+				this.axios.post("/editship", this.newShip).then(response => {
+					if (response['data']['bool'] == "true") {
+						this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
+						location.reload();
+					} else {
+						this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+					}
+				});
+			} else {
+				let messages = [];
+				this.newShip.faction === "" ? messages.push('Ship "Faction" is mandatory') : null;
+				this.newShip.rarity === "" ? messages.push('Ship "Rarity" is mandatory') : null;
+				this.newShip.type === "" ? messages.push('Ship "Type" is mandatory') : null;
+				this.newShip.name === "" ? messages.push('Ship "Name" is mandatory') : null;
+				this.newShip.image === "" ? messages.push('Ship "Image" is mandatory') : null;
+
+				messages.forEach(element => {
+					this.$notify({ text: element, type: 'warn', duration: 3000 });
+				});
+			}
+		},
+
 		addShip: function () {
 			if (this.newShip.image !== "" && this.newShip.name !== "" && this.newShip.type !== "" && this.newShip.rarity !== "" && this.newShip.faction !== "") {
 				//ajax

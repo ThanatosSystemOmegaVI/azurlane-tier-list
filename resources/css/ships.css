@@ -44,6 +44,7 @@
 	padding: 10px;
 	box-shadow: 0 0 4px 1px rgb(151, 151, 151);
 	border-radius: 5px;
+	z-index: 9999999999999999;
 }
 
 .closepopup {
@@ -112,4 +113,20 @@
 	text-overflow: ellipsis;
 	text-wrap: nowrap;
 	overflow: hidden;
+}
+
+.editShip {
+	position: absolute;
+	right: 2px;
+	top: -6px;
+	color: #555555;
+	font-size: 20px;
+	cursor: pointer;
+	z-index: 9999999999;
+}
+
+.newshipimage {
+	width: 100px;
+	height: 150px;
+	object-fit: cover;
 }

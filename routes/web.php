@@ -32,8 +32,9 @@ Route::post('/loginuser', [UsersController::class, 'getUser']);
 Route::post('/checkuser', [UsersController::class, 'checkUser']);
 
 // ships
-Route::post('/getships', [ShipsController::class, 'getships']);
-Route::post('/addship', [ShipsController::class, 'addship']);
+Route::post('/getships', [ShipsController::class, 'getShips']);
+Route::post('/addship', [ShipsController::class, 'addShip']);
+Route::post('/editship', [ShipsController::class, 'editShip']);
 
 // Route::post('user/{id}', ShowProfile::class);
 
