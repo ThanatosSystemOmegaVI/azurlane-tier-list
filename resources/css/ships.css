@@ -170,13 +170,26 @@
 }
 
 /* ============= TIER LIST ============= */
-.tiername{
+.tiername {
 	width: 100px;
 	text-align: center;
 	font-weight: bold;
+
 }
 
-.tiername, .tierdata{
+.tiername p {
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	height: fit-content;
+	margin: auto !important;
+	font-size: -webkit-xxx-large;
+	font-size: 100px
+}
+
+.tiername,
+.tierdata {
 	height: var(--shipImageheight);
 }
 

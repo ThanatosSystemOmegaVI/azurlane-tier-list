@@ -17,8 +17,8 @@
 				<!-- -------------------------------------  List of unsorted ships ------------------------------------- -->
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
-						<div id="shiplist" class="shiplist d-flex gap-2">
-							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship)">
+						<div id="shiplist" class="shiplist d-flex gap-2 shadow-sm">
+							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
 								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
@@ -35,19 +35,23 @@
 
 			<!-- ------------------------------------- tier list with draggable items  ------------------------------------- -->
 			<div class="col-12">
-				<div class="tiers">
-					<div class="d-flex flex-row w-100" v-for="tier in tieritems" v-bind:style="'background-color:' + tier.color">
+				<div class="tiers bg-dark">
+					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems"
+						v-bind:style="'background-color:' + tier.color">
 						<!-- tier name -->
-						<div class="tiername border-end border-dark">
-							<p class="m-0 p-2 fs-1">{{ tier.name }}</p>
+						<div class="tiername text-white position-relative">
+							<p class="position-absolute">{{ tier.name }}</p>
 						</div>
 						<!-- tier data -->
-						<div class="w-100 tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)" @dragover.prevent @dragenter.prevent>
-							<div class="ship" v-for="ship in tier.items" draggable @dragstart="startDrag($event, ship)">
+						<div class="w-100 tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)"
+							@dragover.prevent @dragenter.prevent>
+							<div class="ship" v-for="ship in tier.items" draggable
+								@dragstart="startDrag($event, ship, tier.name)">
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
+										class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
@@ -215,22 +219,31 @@ export default {
 	},
 
 	methods: {
-		startDrag(evt, item) {
+		startDrag(evt, item, originList) {
 			evt.dataTransfer.dropEffect = 'move'
 			evt.dataTransfer.effectAllowed = 'move'
 			evt.dataTransfer.setData('shipID', item.id)
+			evt.dataTransfer.setData('origin', originList)
 		},
 
-		onDrop(evt, list) {
+		onDrop(evt, targetList) {
 			const shipID = evt.dataTransfer.getData('shipID')
+			const originList = evt.dataTransfer.getData('origin')
 			// Find correct ship
-			const shipIndex = this.ships.findIndex((x) => x.id == shipID)
-			// Place item in correct tierlist
-			this.tieritems[list].items.push(this.ships[shipIndex]);
-			console.log(this.tieritems[list].items[0])
-			// this.tieritems[list].items.set(0, 0, this.ships[shipIndex]);
-			// Delete ship from original list
-			// delete this.ships[shipIndex];
+			if (originList == "ships") {
+				// move ship from top row to ranked row
+				const shipIndex = this.ships.findIndex((x) => x.id == shipID)
+				this.tieritems[targetList].items.push(this.ships[shipIndex]);
+				// delete ship from top row
+				this.ships.splice(shipIndex,1);
+			} else {
+				// move ship from ranked row to an other ranked row
+				const originIndex = this.tieritems[originList].items.findIndex((x) => x.id == shipID)
+				this.tieritems[targetList].items.push(this.tieritems[originList].items[originIndex]);
+				// delete ship from original ranked row
+				this.tieritems[originList].items.splice(originIndex,1);
+			}
+
 		},
 
 		addShip: function () {
