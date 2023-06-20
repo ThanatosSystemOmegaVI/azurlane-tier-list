@@ -1,17 +1,19 @@
 <template>
 	<section class="p-4">
 		<div class="row">
-			<!-- TITLE -->
+			<!-- ------------------------------------- TITLE ------------------------------------- -->
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<div class="row align-items-center">
-					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/azurlanelogo.webp" class="img-fluid" alt="azurlanelogo"></div>
-					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/tierlisttext.webp" class="img-fluid" alt="tierlisttext"></div>
+					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/azurlanelogo.webp" class="img-fluid"
+							alt="azurlanelogo"></div>
+					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/tierlisttext.webp" class="img-fluid"
+							alt="tierlisttext"></div>
 				</div>
 			</div>
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 
 			</div>
-			<!-- TIERLIST -->
+			<!-- ------------------------------------- TIERLIST ------------------------------------- -->
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<div class="tiers bg-dark shadow-sm">
 					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems"
@@ -22,13 +24,38 @@
 						</div>
 						<!-- tier data -->
 						<div class="w-100 flex-wrap tierdata drop-zone d-flex gap-1">
-							<div class="ship shiphomepage" v-for="ship in tier.items">
+							<div class="ship shiphomepage" v-for="ship in tier.items" @click="showShipData(ship)">
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
+										class="position-absolute shipicon">
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ------------------------------------- POPUP ------------------------------------- -->
+			<div class="col-12">
+				<div class="popup" id="showship" v-if="showShip" v-bind:class="'bg '+this.shipData.rarity">
+					<div class="row">
+						<div class="col-12 col-md-12 col-lg-12 col-xl-12 position-relative">
+							<h1 class="w-100 bg-secondary text-white text-center">{{ this.shipData.name }}</h1>
+							<font-awesome-icon icon="fa-solid fa-xmark" class="position-absolute closepopup fs-1 text-white" @click="this.showShip = false" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 col-md-12 col-lg-12 col-xl-12">
+							<div class="d-flex flex-row gap-2 justify-content-between">
+								<img v-bind:src="'/getimagedata/ships/' + this.shipData.image" class="showshipimage rounded-3">
+								<div class="d-flex flex-wrap w-100 gap-2 rounded-3" id="chart"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 col-md-12 col-lg-12 col-xl-12" v-if="this.shipData.note!==''">
+							<p class="shipnote m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note }}</p>
 						</div>
 					</div>
 				</div>
@@ -40,6 +67,7 @@
 <script>
 import '../../css/ships.css';
 import '../../css/index.css';
+import 'https://cdn.jsdelivr.net/npm/apexcharts';
 export default {
 	name: "Home",
 	data() {
@@ -53,6 +81,8 @@ export default {
 				"E": { items: [], name: "E", color: "#b85042 " },
 				"F": { items: [], name: "F", color: "#671b11 " },
 			},
+			shipData: {},
+			showShip: false,
 		}
 	},
 	created() {
@@ -73,6 +103,37 @@ export default {
 				this.tieritems["F"]['items'] = response['data']['ships']["F"] !== undefined ? response['data']['ships']["F"] : [];
 			});
 		},
+
+		showShipData: function (ship) {
+			this.shipData = Object.assign({}, ship);
+			this.shipData.Performace = JSON.parse(this.shipData.Performace);
+			this.showShip = true;
+			setTimeout(()=>{
+				this.loadChart(this.shipData.Performace);
+			},100)
+		},
+
+		loadChart: function (Performace) {
+			let Element = document.getElementById('chart');
+			var options = {
+				chart: {
+					type: 'radar',
+					height: 300,
+				},
+				series: [
+					{
+						data: [parseInt(Performace.FP),  parseInt(Performace.AA), parseInt(Performace.SP), parseInt(Performace.AVI), parseInt(Performace.TRP)]
+					}
+				],
+				xaxis: {
+					categories: ["FP","AA", "SP", "AVI", "TRP"]
+				}
+			}
+			Element.innerHTML = "";
+			var chart = new ApexCharts(Element, options)
+			chart.render()
+		}
 	}
 }
+
 </script>

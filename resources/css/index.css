@@ -1,3 +1,74 @@
+#showship {
+	position: absolute;
+	width: fit-content;
+	max-width: 80%;
+	height: fit-content;
+	max-height: 80vh;
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #FFF;
+	padding: 10px;
+	box-shadow: 0 0 4px 1px rgb(151, 151, 151);
+	border-radius: 5px;
+	z-index: 9999999999999999;
+}
+
 .shiphomepage {
 	cursor: pointer;
+}
+
+.performacedata {
+	width: 45%;
+}
+
+.performacedatakey {
+	width: 50px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.showshipimage {
+	height: 315px;
+}
+
+#chart {
+	width: fit-content !important;
+    background-color: #fffffffa;
+}
+
+.shipnote{
+	box-shadow: inset 0 0 3px 0 rgb(201, 201, 201);
+	padding: 4px;
+}
+
+.closepopup{
+	top: 6px;
+    right: 15px;
+    margin: auto;
+}
+
+/* backgrounds */
+.bg.Common {
+	background-color: #deeaff !important;
+}
+
+.bg.Rare {
+	background-color: #cae4ff !important;
+}
+
+.bg.Elite {
+	background-color: #ded7ff !important;
+}
+
+.bg.Super.rare {
+	background-color: #fff9d9 !important;
+}
+
+.bg.Ultra {
+	background-image: linear-gradient(to bottom right, #ffeabc 0%, #ffd2bc 15%, #ffc2f5 30%, #c8b4ff 50%, #aaffcc 100%);
 }
