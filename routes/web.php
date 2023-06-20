@@ -36,6 +36,7 @@ Route::post('/getships', [ShipsController::class, 'getShips']);
 Route::post('/addship', [ShipsController::class, 'addShip']);
 Route::post('/editship', [ShipsController::class, 'editShip']);
 Route::post('/deleteship', [ShipsController::class, 'deleteShip']);
+Route::post('/saveshiptierlist', [ShipsController::class, 'saveShipTierList']);
 
 // Route::post('user/{id}', ShowProfile::class);
 

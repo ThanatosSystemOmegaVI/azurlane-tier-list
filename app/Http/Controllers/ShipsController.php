@@ -22,11 +22,17 @@ class ShipsController extends Controller
 
     public function getShips(Request $request)
     {
-        $ships = Ships::orderBy('rarity')->orderBy('name')->get();
-        if (!empty($ships)) {
-            $ships = $ships->toArray();
-        } else {
-            $ships = [];
+        $AllShips = Ships::orderBy('rarity')->orderBy('name')->get();
+        $ships = [];
+        if (!empty($AllShips)) {
+            $AllShips = $AllShips->toArray();
+            foreach ($AllShips as $ship) {
+                if (!empty($ship['tier']) && $ship['tier'] !== "null") {
+					$ships[$ship['tier']][]=$ship;
+                }else{
+					$ships['notier'][]=$ship;
+				}
+            }
         }
 
         return response()->json([
@@ -134,6 +140,31 @@ class ShipsController extends Controller
             return response()->json([
                 'bool' => "false",
                 'message' => "No ship found",
+            ]);
+        }
+    }
+
+    public function saveShipTierList(Request $request)
+    {
+        $tierlist = $request->all();
+
+        $update = true;
+        foreach ($tierlist as $rank) {
+            foreach ($rank['items'] as $ship) {
+                // update ship ranking
+                $update &= Ships::where("id", $ship['id'])->update(["tier" => $rank['name']]);
+            }
+        }
+
+        if ($update) {
+            return response()->json([
+                'bool' => "true",
+                'message' => "Tier list succesfully updated",
+            ]);
+        } else {
+            return response()->json([
+                'bool' => "false",
+                'message' => "Something went wrong when updating the tierlist",
             ]);
         }
     }

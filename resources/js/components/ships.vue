@@ -18,7 +18,8 @@
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2 shadow-sm">
-							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')">
+							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')"
+								v-bind:id="ship.id">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
 								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
@@ -36,29 +37,28 @@
 			<!-- ------------------------------------- tier list with draggable items  ------------------------------------- -->
 			<div class="col-12">
 				<div class="tiers bg-dark">
-					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems"
-						v-bind:style="'background-color:' + tier.color">
+					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems" v-bind:style="'background-color:' + tier.color">
 						<!-- tier name -->
 						<div class="tiername text-white position-relative">
 							<p class="position-absolute">{{ tier.name }}</p>
 						</div>
 						<!-- tier data -->
-						<div class="w-100 tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)"
-							@dragover.prevent @dragenter.prevent>
-							<div class="ship" v-for="ship in tier.items" draggable
-								@dragstart="startDrag($event, ship, tier.name)">
+						<div class="w-100 flex-wrap tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)" @dragover.prevent @dragenter.prevent>
+							<div class="ship" v-for="ship in tier.items" draggable @dragstart="startDrag($event, ship, tier.name)" v-bind:id="ship.id">
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
-										class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			<!-- submit -->
+			<div class="col-12">
+				<button class="btn button btn-primary w-100" @click="saveTierList()"><font-awesome-icon icon="fa-solid fa-floppy-disk" /> Save order</button>
+			</div>
 			<!-- ------------------------------------- ship adding popup ------------------------------------- -->
 			<div class="col-12">
 				<div class="popup" id="addship" v-if="showAddship">
@@ -67,8 +67,7 @@
 						<div class="col-12">
 							<h2 class="text-center text-primary" v-if="this.editShipID == 0">Add ship</h2>
 							<h2 class="text-center text-primary" v-else>Edit ship</h2>
-							<font-awesome-icon icon="fa-solid fa-xmark"
-								class="position-absolute closepopup text-primary fs-1" @click="this.showAddship = false" />
+							<font-awesome-icon icon="fa-solid fa-xmark" class="position-absolute closepopup text-primary fs-1" @click="this.showAddship = false" />
 						</div>
 					</div>
 					<!-- inputs -->
@@ -76,12 +75,10 @@
 					<img v-else v-bind:src="'/getimagedata/ships/' + this.newShip.image" class="newshipimage">
 					<div class="row">
 						<div class="col-6">
-							<input type="file" id="image" class="form-control mb-2" @change="onFileChanged($event)"
-								accept="image/*" placeholder="shipimage">
+							<input type="file" id="image" class="form-control mb-2" @change="onFileChanged($event)" accept="image/*" placeholder="shipimage">
 						</div>
 						<div class="col-6">
-							<input type="text" id="name" class="form-control mb-2" v-model="newShip.name"
-								placeholder="Ship name">
+							<input type="text" id="name" class="form-control mb-2" v-model="newShip.name" placeholder="Ship name">
 						</div>
 					</div>
 					<div class="row">
@@ -112,50 +109,41 @@
 								<div class="col-6">
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">FP</span>
-										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control"
-											placeholder="FP">
+										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control" placeholder="FP">
 									</div>
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">HP</span>
-										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control"
-											placeholder="HP">
+										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control" placeholder="HP">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">AA</span>
-										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control"
-											placeholder="AA">
+										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control" placeholder="AA">
 									</div>
 								</div>
 								<div class="col-6">
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">&nbsp;SP</span>
-										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control"
-											placeholder="SP">
+										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control" placeholder="SP">
 									</div>
 									<div class="input-group mb-1">
 										<span class="input-group-text" id="basic-addon1">AVI</span>
-										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control"
-											placeholder="AVI">
+										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control" placeholder="AVI">
 									</div>
 									<div class="input-group">
 										<span class="input-group-text" id="basic-addon1">TRP</span>
-										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control"
-											placeholder="TRP">
+										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control" placeholder="TRP">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-6">
-							<textarea id="note" class="form-control h-100" v-model="newShip.note"
-								placeholder="Note"></textarea>
+							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<button class="btn button btn-primary w-100 mt-2" v-if="this.editShipID == 0"
-								@click="addShipSubmit()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
-							<button class="btn button btn-primary w-100 mt-2" v-else
-								@click="editShipSubmit()"><font-awesome-icon icon="fa-solid fa-pen" /> Edit ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-if="this.editShipID == 0" @click="addShipSubmit()"><font-awesome-icon icon="fa-solid fa-plus" /> Add ship</button>
+							<button class="btn button btn-primary w-100 mt-2" v-else @click="editShipSubmit()"><font-awesome-icon icon="fa-solid fa-pen" /> Edit ship</button>
 						</div>
 					</div>
 				</div>
@@ -168,9 +156,6 @@
 import '../../css/ships.css';
 export default {
 	name: "ships",
-	computed: {
-
-	},
 	data() {
 		return {
 			// tierlist 
@@ -220,30 +205,29 @@ export default {
 
 	methods: {
 		startDrag(evt, item, originList) {
-			evt.dataTransfer.dropEffect = 'move'
-			evt.dataTransfer.effectAllowed = 'move'
-			evt.dataTransfer.setData('shipID', item.id)
-			evt.dataTransfer.setData('origin', originList)
+			evt.dataTransfer.dropEffect = 'move';
+			evt.dataTransfer.effectAllowed = 'move';
+			evt.dataTransfer.setData('shipID', item.id);
+			evt.dataTransfer.setData('origin', originList);
 		},
 
 		onDrop(evt, targetList) {
-			const shipID = evt.dataTransfer.getData('shipID')
-			const originList = evt.dataTransfer.getData('origin')
+			const shipID = evt.dataTransfer.getData('shipID');
+			const originList = evt.dataTransfer.getData('origin');
 			// Find correct ship
 			if (originList == "ships") {
 				// move ship from top row to ranked row
-				const shipIndex = this.ships.findIndex((x) => x.id == shipID)
+				const shipIndex = this.ships.findIndex((x) => x.id == shipID);
 				this.tieritems[targetList].items.push(this.ships[shipIndex]);
 				// delete ship from top row
-				this.ships.splice(shipIndex,1);
+				this.ships.splice(shipIndex, 1);
 			} else {
 				// move ship from ranked row to an other ranked row
-				const originIndex = this.tieritems[originList].items.findIndex((x) => x.id == shipID)
+				const originIndex = this.tieritems[originList].items.findIndex((x) => x.id == shipID);
 				this.tieritems[targetList].items.push(this.tieritems[originList].items[originIndex]);
 				// delete ship from original ranked row
-				this.tieritems[originList].items.splice(originIndex,1);
+				this.tieritems[originList].items.splice(originIndex, 1);
 			}
-
 		},
 
 		addShip: function () {
@@ -314,6 +298,16 @@ export default {
 			}
 		},
 
+		saveTierList: function () {
+			this.axios.post("/saveshiptierlist", this.tieritems).then(response => {
+				if (response['data']['bool'] == "true") {
+					this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
+				} else {
+					this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+				}
+			});
+		},
+
 		editShipSubmit: function () {
 			if (this.newShip.image !== "" && this.newShip.name !== "" && this.newShip.type !== "" && this.newShip.rarity !== "" && this.newShip.faction !== "") {
 				//ajax
@@ -355,7 +349,16 @@ export default {
 
 		getShips: function () {
 			this.axios.post("/getships", {}).then(response => {
-				this.ships = response['data']['ships'];
+				// fill all tiers with the correct ships
+				this.ships = response['data']['ships']['notier'];
+				this.tieritems["S"]['items'] = response['data']['ships']["S"] !== undefined ? response['data']['ships']["S"] : [];
+				this.tieritems["A"]['items'] = response['data']['ships']["A"] !== undefined ? response['data']['ships']["A"] : [];
+				this.tieritems["B"]['items'] = response['data']['ships']["B"] !== undefined ? response['data']['ships']["B"] : [];
+				this.tieritems["C"]['items'] = response['data']['ships']["C"] !== undefined ? response['data']['ships']["C"] : [];
+				this.tieritems["D"]['items'] = response['data']['ships']["D"] !== undefined ? response['data']['ships']["D"] : [];
+				this.tieritems["E"]['items'] = response['data']['ships']["E"] !== undefined ? response['data']['ships']["E"] : [];
+				this.tieritems["F"]['items'] = response['data']['ships']["F"] !== undefined ? response['data']['ships']["F"] : [];
+				console.log(this.tieritems["S"]['items'])
 			});
 		},
 

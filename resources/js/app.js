@@ -27,10 +27,11 @@ import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus, faXmark, faPen, faTrash);
+library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus, faXmark, faPen, faTrash, faFloppyDisk);
 
 // vars
 const axiosInstance = axios.create({

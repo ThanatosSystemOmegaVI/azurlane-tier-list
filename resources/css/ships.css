@@ -48,14 +48,16 @@
 
 /* ============= SHIPS IN SHIP LIST ============= */
 .shiplist {
-	height: 155px;
-	overflow-y: hidden;
-	overflow-x: auto;
-	margin-bottom: 0.5em;
+	min-height: 155px;
+    overflow-y: hidden;
+    overflow-x: auto;
+    margin-bottom: 0.5em;
+    height: auto;
 }
 
 .ship {
 	position: relative;
+	cursor: grab;
 }
 
 /* border color + shine */
@@ -190,7 +192,7 @@
 
 .tiername,
 .tierdata {
-	height: var(--shipImageheight);
+	min-height: var(--shipImageheight);
 }
 
 @keyframes TransitioningBackground {
