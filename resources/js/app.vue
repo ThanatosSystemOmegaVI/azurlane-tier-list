@@ -10,7 +10,7 @@
 						</div>
 					</div>
 					<div class="col-4 col-md-4 col-lg-2 col-xl-2">
-						<font-awesome-icon icon="fa-regular fa-circle-user" v-if="loggedin" class="headericon" />
+						<font-awesome-icon icon="fa-regular fa-circle-user" v-if="loggedin" @click="toPage('/ships')" class="headericon pointer" />
 					</div>
 				</div>
 			</div>

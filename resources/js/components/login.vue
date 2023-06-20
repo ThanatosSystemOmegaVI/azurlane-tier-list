@@ -49,7 +49,8 @@ export default {
 			this.axios.post("/loginuser", logindata).then(response => {
 				if (response['data']['bool'] == "true") {
 					this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
-					location.href = "/";
+					sessionStorage.email = this.email;
+					location.href = "/ships";
 				} else {
 					this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
 				}

@@ -9,7 +9,7 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
-				
+
 			</div>
 			<!-- TIERLIST -->
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
@@ -71,7 +71,6 @@ export default {
 				this.tieritems["D"]['items'] = response['data']['ships']["D"] !== undefined ? response['data']['ships']["D"] : [];
 				this.tieritems["E"]['items'] = response['data']['ships']["E"] !== undefined ? response['data']['ships']["E"] : [];
 				this.tieritems["F"]['items'] = response['data']['ships']["F"] !== undefined ? response['data']['ships']["F"] : [];
-				console.log(this.tieritems["S"]['items'])
 			});
 		},
 	}
