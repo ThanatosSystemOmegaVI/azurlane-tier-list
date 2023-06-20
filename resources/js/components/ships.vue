@@ -2,7 +2,7 @@
 	<section class="p-4">
 		<div class="row">
 			<!-- ------------------------------------- List of unsorted ships + add ship button ------------------------------------- -->
-			<div class="col-12">
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<!-- ------------------------------------- Add ship button ------------------------------------- -->
 				<div class="row">
 					<div id="addbutton"
@@ -17,7 +17,7 @@
 				<!-- -------------------------------------  List of unsorted ships ------------------------------------- -->
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
-						<div id="shiplist" class="shiplist d-flex gap-2 shadow-sm">
+						<div id="shiplist" class="shiplist d-flex gap-2">
 							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')"
 								v-bind:id="ship.id">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
@@ -35,7 +35,7 @@
 			</div>
 
 			<!-- ------------------------------------- tier list with draggable items  ------------------------------------- -->
-			<div class="col-12">
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<div class="tiers bg-dark">
 					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems" v-bind:style="'background-color:' + tier.color">
 						<!-- tier name -->
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<!-- submit -->
-			<div class="col-12">
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<button class="btn button btn-primary w-100" @click="saveTierList()"><font-awesome-icon icon="fa-solid fa-floppy-disk" /> Save order</button>
 			</div>
 			<!-- ------------------------------------- ship adding popup ------------------------------------- -->
@@ -161,13 +161,13 @@ export default {
 			// tierlist 
 			drag: false,
 			tieritems: {
-				"S": { items: [], name: "S", color: "#ff7f7f" },
-				"A": { items: [], name: "A", color: "#ffbf7f" },
-				"B": { items: [], name: "B", color: "#ffdf7f" },
-				"C": { items: [], name: "C", color: "#ffff7f" },
-				"D": { items: [], name: "D", color: "#bfff7f" },
-				"E": { items: [], name: "E", color: "#7fff7f" },
-				"F": { items: [], name: "F", color: "#229fa3" },
+				"S": { items: [], name: "S", color: "#c89afd" },
+				"A": { items: [], name: "A", color: "#0085b5" },
+				"B": { items: [], name: "B", color: "#60dbe8" },
+				"C": { items: [], name: "C", color: "#8bd346" },
+				"D": { items: [], name: "D", color: "#f9a52c" },
+				"E": { items: [], name: "E", color: "#b85042" },
+				"F": { items: [], name: "F", color: "#671b11" },
 			},
 			// ships list
 			ships: {},

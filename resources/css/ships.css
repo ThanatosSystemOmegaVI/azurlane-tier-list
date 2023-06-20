@@ -53,6 +53,7 @@
     overflow-x: auto;
     margin-bottom: 0.5em;
     height: auto;
+	box-shadow: 0 0 4px 3px #4141418a;
 }
 
 .ship {
@@ -172,6 +173,10 @@
 }
 
 /* ============= TIER LIST ============= */
+.tiers{
+	box-shadow: 0 0 4px 3px #4141418a;
+}
+
 .tiername {
 	width: 100px;
 	text-align: center;

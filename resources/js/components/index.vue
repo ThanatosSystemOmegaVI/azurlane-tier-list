@@ -1,8 +1,19 @@
 <template>
 	<section class="p-4">
 		<div class="row">
-			<div class="col-12">
-				<div class="tiers bg-dark">
+			<!-- TITLE -->
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
+				<div class="row align-items-center">
+					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/azurlanelogo.webp" class="img-fluid" alt="azurlanelogo"></div>
+					<div class="col-12 col-md-12 col-lg-6 col-xl-6"><img src="../../img/tierlisttext.webp" class="img-fluid" alt="tierlisttext"></div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
+				
+			</div>
+			<!-- TIERLIST -->
+			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
+				<div class="tiers bg-dark shadow-sm">
 					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems"
 						v-bind:style="'background-color:' + tier.color">
 						<!-- tier name -->
@@ -34,13 +45,13 @@ export default {
 	data() {
 		return {
 			tieritems: {
-				"S": { items: [], name: "S", color: "#ff7f7f" },
-				"A": { items: [], name: "A", color: "#ffbf7f" },
-				"B": { items: [], name: "B", color: "#ffdf7f" },
-				"C": { items: [], name: "C", color: "#ffff7f" },
-				"D": { items: [], name: "D", color: "#bfff7f" },
-				"E": { items: [], name: "E", color: "#7fff7f" },
-				"F": { items: [], name: "F", color: "#229fa3" },
+				"S": { items: [], name: "S", color: "#c89afd " },
+				"A": { items: [], name: "A", color: "#0085b5 " },
+				"B": { items: [], name: "B", color: "#60dbe8 " },
+				"C": { items: [], name: "C", color: "#8bd346 " },
+				"D": { items: [], name: "D", color: "#f9a52c " },
+				"E": { items: [], name: "E", color: "#b85042 " },
+				"F": { items: [], name: "F", color: "#671b11 " },
 			},
 		}
 	},
