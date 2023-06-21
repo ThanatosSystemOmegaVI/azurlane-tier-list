@@ -5,12 +5,9 @@
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<!-- ------------------------------------- Add ship button ------------------------------------- -->
 				<div class="row">
-					<div id="addbutton"
-						class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative"
-						@click="addShip()">
+					<div id="addbutton" class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative" @click="addShip()">
 						<div class="button-default button-slanted bg-secondary text-white fw-bold pointer">
-							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add
-								Ship</span>
+							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add Ship</span>
 						</div>
 					</div>
 				</div>
@@ -25,8 +22,7 @@
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
-									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'"
-										class="position-absolute shipicon">
+									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
 								</div>
 							</div>
 						</div>
