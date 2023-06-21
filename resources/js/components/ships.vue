@@ -244,7 +244,7 @@ export default {
 						this.getShips();
 						this.showAddship = false;
 					} else {
-						this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+						this.$notify({ text: response['data']['message'], type: 'error', duration: 3000 });
 					}
 				});
 			} else {
@@ -290,7 +290,7 @@ export default {
 								this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
 								this.getShips();
 							} else {
-								this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+								this.$notify({ text: response['data']['message'], type: 'error', duration: 3000 });
 							}
 						});
 					}
@@ -303,7 +303,7 @@ export default {
 				if (response['data']['bool'] == "true") {
 					this.$notify({ text: response['data']['message'], type: 'success', duration: 3000 });
 				} else {
-					this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+					this.$notify({ text: response['data']['message'], type: 'error', duration: 3000 });
 				}
 			});
 		},
@@ -317,7 +317,7 @@ export default {
 						this.getShips();
 						this.showAddship = false;
 					} else {
-						this.$notify({ text: response['data']['message'], type: 'warn', duration: 3000 });
+						this.$notify({ text: response['data']['message'], type: 'error', duration: 3000 });
 					}
 				});
 			} else {
