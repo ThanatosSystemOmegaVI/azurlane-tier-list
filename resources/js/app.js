@@ -10,9 +10,6 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
 
-// charts
-// import ApexCharts from 'apexcharts'
-
 // notifications
 import Notifications from '@kyvg/vue3-notification'
 
