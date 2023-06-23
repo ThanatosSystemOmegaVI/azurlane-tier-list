@@ -17,7 +17,7 @@ export const routes = [
 		name: 'ships',
 		path: '/ships',
 		component: () => import('@/components/ships.vue'),
-		authRequired: true,
+		meta: { authRequired: true },
 	},
 	{
 		name: '404',

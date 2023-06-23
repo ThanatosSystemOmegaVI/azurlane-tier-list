@@ -15,8 +15,7 @@
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
-							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')"
-								v-bind:id="ship.id">
+							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')" v-bind:id="ship.id">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
 								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
@@ -257,17 +256,6 @@ export default {
 			}
 		},
 
-		// Edit ship in database
-		editShip: function (ship) {
-			if (ship !== undefined && ship !== null && ship.id != "0") {
-				this.refreshInputs();
-				this.showAddship = true;
-				this.editShipID = ship.id;
-				ship.Performace = JSON.parse(ship.Performace);
-				this.newShip = Object.assign({}, ship);
-			}
-		},
-
 		// Delete ship from database
 		deleteShip: function (ship) {
 			if (ship !== undefined && ship !== null && ship.id != "0") {
@@ -302,6 +290,17 @@ export default {
 					this.$notify({ text: response['data']['message'], type: 'error', duration: 3000 });
 				}
 			});
+		},
+
+		// Edit ship in database
+		editShip: function (ship) {
+			if (ship !== undefined && ship !== null && ship.id != "0") {
+				this.refreshInputs();
+				this.showAddship = true;
+				this.editShipID = ship.id;
+				ship.Performace = JSON.parse(ship.Performace);
+				this.newShip = Object.assign({}, ship);
+			}
 		},
 
 		editShipSubmit: function () {
