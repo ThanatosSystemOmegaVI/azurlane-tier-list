@@ -39,7 +39,7 @@ class UsersController extends Controller
         }else{
 			return response()->json([
 				'bool' => "false",
-				'message' => "Email or Password fields are mandatory",
+				'message' => "Email and Password fields are mandatory",
 			]);
 		}
     }
