@@ -1,5 +1,5 @@
 #showship {
-	position: absolute;
+	position: fixed;
 	width: fit-content;
 	max-width: 80%;
 	height: fit-content;

@@ -182,12 +182,12 @@ export default {
 				faction: "",
 				note: "",
 				Performace: {
-					FP: null,
-					HP: null,
-					AA: null,
-					SP: null,
-					AVI: null,
-					TRP: null,
+					FP: 0,
+					HP: 0,
+					AA: 0,
+					SP: 0,
+					AVI: 0,
+					TRP: 0,
 				},
 			}
 		}
@@ -367,12 +367,12 @@ export default {
 				faction: "",
 				note: "",
 				Performace: {
-					FP: null,
-					HP: null,
-					AA: null,
-					SP: null,
-					AVI: null,
-					TRP: null,
+					FP: 0,
+					HP: 0,
+					AA: 0,
+					SP: 0,
+					AVI: 0,
+					TRP: 0,
 				},
 			}
 		}
