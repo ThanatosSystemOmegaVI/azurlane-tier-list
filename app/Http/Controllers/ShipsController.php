@@ -59,7 +59,7 @@ class ShipsController extends Controller
                 $filename = date("ymd") . rand(1111, 9999);
                 $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
                 $file = base64_decode(explode(";base64,", $image)[1]);
-                if (!is_dir($$path)) {
+                if (!is_dir($path)) {
                     mkdir($path);
                 }
                 if (!is_dir("$path/ships/")) {
