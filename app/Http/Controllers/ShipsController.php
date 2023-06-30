@@ -51,40 +51,48 @@ class ShipsController extends Controller
         $note = $request->filled('note') ? $request->get('note') : "";
         $image = $request->filled('image') ? $request->get('image') : "";
 
-        if (!Ships::where('name', $name)->exists()) {
-            // save image
-            $filename = date("ymd") . rand(1111, 9999);
-            $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
-            $file = base64_decode(explode(";base64,", $image)[1]);
-            if (!is_dir("../data/")) {
-                mkdir("../data");
-            }
-            if (!is_dir("../data/ships/")) {
-                mkdir("../data/ships");
-            }
-            file_put_contents("../data/ships/$filename.$extension", $file);
+        if (!empty($name) && !empty($type) && !empty($rarity) && !empty($faction)) {
+            if (!Ships::where('name', $name)->exists()) {
+                // save image
+                $filename = date("ymd") . rand(1111, 9999);
+                $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
+                $file = base64_decode(explode(";base64,", $image)[1]);
+                if (!is_dir("../data/")) {
+                    mkdir("../data");
+                }
+                if (!is_dir("../data/ships/")) {
+                    mkdir("../data/ships");
+                }
+                file_put_contents("../data/ships/$filename.$extension", $file);
 
-            // insert ship
-            $insert = Ships::insert([
-                "image" => "$filename.$extension", "name" => $name, "type" => $type, "rarity" => $rarity,
-                "faction" => $faction, "Performace" => json_encode($performace), "note" => $note,
-            ]);
-            if ($insert) {
-                return response()->json([
-                    'bool' => "true",
-                    'message' => "Ship $name Successfully added",
+                // insert ship
+                $insert = Ships::insert([
+                    "image" => "$filename.$extension", "name" => $name, "type" => $type, "rarity" => $rarity,
+                    "faction" => $faction, "Performace" => json_encode($performace), "note" => $note,
                 ]);
+                if ($insert) {
+                    return response()->json([
+                        'bool' => "true",
+                        'message' => "Ship $name Successfully added",
+                    ]);
+                } else {
+                    return response()->json([
+                        'bool' => "false",
+                        'message' => "something went wriong when adding $name",
+                    ]);
+                }
             } else {
+                // already exists
                 return response()->json([
                     'bool' => "false",
-                    'message' => "something went wriong when adding $name",
+                    'message' => "There already exists a ship with the name $name",
                 ]);
             }
         } else {
-            // already exists
+            // missing fields
             return response()->json([
                 'bool' => "false",
-                'message' => "There already exists a ship with the name $name",
+                'message' => "Name, Type, Rartity & Faction fields are mandatory",
             ]);
         }
     }
@@ -101,50 +109,57 @@ class ShipsController extends Controller
         $image = $request->filled('image') ? $request->get('image') : "";
 
         if (!empty($id)) {
-            // check if a new image has been uploaded
-            if (strpos($image, ";base64,") !== false) {
-                // save new image
-                $filename = date("ymd") . rand(1111, 9999);
-                $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
-                $file = base64_decode(explode(";base64,", $image)[1]);
+            if (!empty($name) && !empty($type) && !empty($rarity) && !empty($faction)) {
+                // check if a new image has been uploaded
+                if (strpos($image, ";base64,") !== false) {
+                    // save new image
+                    $filename = date("ymd") . rand(1111, 9999);
+                    $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
+                    $file = base64_decode(explode(";base64,", $image)[1]);
 
-                if (!is_dir("../data/")) {
-                    mkdir("../data");
+                    if (!is_dir("../data/")) {
+                        mkdir("../data");
+                    }
+                    if (!is_dir("../data/ships/")) {
+                        mkdir("../data/ships");
+                    }
+
+                    file_put_contents("../data/ships/$filename.$extension", $file);
+                    $filename .= "." . $extension;
+
+                    // remove old image
+                    $currentShip = Ships::where("id", $id)->first()->toArray();
+                    if (file_exists("../data/ships/" . $currentShip['image'])) {
+                        unlink("../data/ships/" . $currentShip['image']);
+                    }
+                } else {
+                    $filename = $image;
                 }
-                if (!is_dir("../data/ships/")) {
-                    mkdir("../data/ships");
-                }
 
-                file_put_contents("../data/ships/$filename.$extension", $file);
-                $filename .= "." . $extension;
-
-                // remove old image
-                $currentShip = Ships::where("id", $id)->first()->toArray();
-                if (file_exists("../data/ships/" . $currentShip['image'])) {
-                    unlink("../data/ships/" . $currentShip['image']);
-                }
-            } else {
-                $filename = $image;
-            }
-
-            // update ship data
-            $update = Ships::where("id", $id)->update([
-                "image" => $filename, "name" => $name, "type" => $type, "rarity" => $rarity,
-                "faction" => $faction, "Performace" => json_encode($performace), "note" => $note,
-            ]);
-
-            if ($update) {
-                return response()->json([
-                    'bool' => "true",
-                    'message' => "Ship $name Successfully updated",
+                // update ship data
+                $update = Ships::where("id", $id)->update([
+                    "image" => $filename, "name" => $name, "type" => $type, "rarity" => $rarity,
+                    "faction" => $faction, "Performace" => json_encode($performace), "note" => $note,
                 ]);
+
+                if ($update) {
+                    return response()->json([
+                        'bool' => "true",
+                        'message' => "Ship $name Successfully updated",
+                    ]);
+                } else {
+                    return response()->json([
+                        'bool' => "false",
+                        'message' => "something went wrong when updating: $name",
+                    ]);
+                }
+
             } else {
                 return response()->json([
                     'bool' => "false",
-                    'message' => "something went wrong when updating: $name",
+                    'message' => "Name, Type, Rartity & Faction fields are mandatory",
                 ]);
             }
-
         } else {
             return response()->json([
                 'bool' => "false",
