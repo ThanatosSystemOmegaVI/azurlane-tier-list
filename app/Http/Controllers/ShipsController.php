@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Ships;
 use Illuminate\Http\Request;
 
+$path = getcwd() . "/../azurlanetierlist/data";
+
 class ShipsController extends Controller
 {
     public function getImage(Request $request, $type, $name)
     {
-        $file = file_get_contents("../data/$type/$name");
+        $file = file_get_contents("$path/$type/$name");
         $filetype = explode(".", $name)[1];
         header('Pragma: public');
         header('Cache-Control: max-age=86400');
@@ -57,13 +59,13 @@ class ShipsController extends Controller
                 $filename = date("ymd") . rand(1111, 9999);
                 $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
                 $file = base64_decode(explode(";base64,", $image)[1]);
-                if (!is_dir("../data/")) {
-                    mkdir("../data");
+                if (!is_dir($$path)) {
+                    mkdir($path);
                 }
-                if (!is_dir("../data/ships/")) {
-                    mkdir("../data/ships");
+                if (!is_dir("$path/ships/")) {
+                    mkdir("$path/ships");
                 }
-                file_put_contents("../data/ships/$filename.$extension", $file);
+                file_put_contents("$path/ships/$filename.$extension", $file);
 
                 // insert ship
                 $insert = Ships::insert([
@@ -117,20 +119,20 @@ class ShipsController extends Controller
                     $extension = str_replace("data:image/", "", explode(";base64,", $image)[0]);
                     $file = base64_decode(explode(";base64,", $image)[1]);
 
-                    if (!is_dir("../data/")) {
-                        mkdir("../data");
+                    if (!is_dir($path)) {
+                        mkdir($path);
                     }
-                    if (!is_dir("../data/ships/")) {
-                        mkdir("../data/ships");
+                    if (!is_dir("$path/ships/")) {
+                        mkdir("$path/ships");
                     }
 
-                    file_put_contents("../data/ships/$filename.$extension", $file);
+                    file_put_contents("$path/ships/$filename.$extension", $file);
                     $filename .= "." . $extension;
 
                     // remove old image
                     $currentShip = Ships::where("id", $id)->first()->toArray();
-                    if (file_exists("../data/ships/" . $currentShip['image'])) {
-                        unlink("../data/ships/" . $currentShip['image']);
+                    if (file_exists("$path/ships/" . $currentShip['image'])) {
+                        unlink("$path/ships/" . $currentShip['image']);
                     }
                 } else {
                     $filename = $image;
@@ -203,8 +205,8 @@ class ShipsController extends Controller
             $currentShip = Ships::where("id", $id)->first();
             if (!empty($currentShip)) {
                 $currentShip = $currentShip->toArray();
-                if (file_exists("../data/ships/" . $currentShip['image'])) {
-                    unlink("../data/ships/" . $currentShip['image']);
+                if (file_exists("$path/ships/" . $currentShip['image'])) {
+                    unlink("$path/ships/" . $currentShip['image']);
                 }
             }
 
