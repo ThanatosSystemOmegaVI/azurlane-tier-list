@@ -6,7 +6,7 @@
 				<div class="row">
 					<div class="col-8 col-md-8 col-lg-10 col-xl-10">
 						<div class="headeritem">
-							<img src="../img/logo banner clear.png" class="headerimg pointer" @click="toPage('/')" alt="logo">
+							<img src="../img/logo_banner_clear.png" class="headerimg pointer" @click="toPage('/')" alt="logo">
 						</div>
 					</div>
 					<div class="col-4 col-md-4 col-lg-2 col-xl-2">
