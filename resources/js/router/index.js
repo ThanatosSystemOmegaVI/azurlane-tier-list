@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import Home from '@/components/index.vue';
+import Home from '@/components/home.vue';
 let authenticated = sessionStorage.email !== undefined && sessionStorage.email !== null && sessionStorage.email !== "" && sessionStorage.email.length > 0 ? true : false;
 export const routes = [
 	{

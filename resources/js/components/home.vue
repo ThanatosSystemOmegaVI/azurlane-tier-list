@@ -74,7 +74,7 @@ import '../../css/ships.css';
 import '../../css/index.css';
 import 'https://cdn.jsdelivr.net/npm/apexcharts';
 export default {
-	name: "Home",
+	name: "home",
 	data() {
 		return {
 			tieritems: {
