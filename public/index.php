@@ -14,9 +14,9 @@ define('LARAVEL_START', microtime(true));
 | we will load this file so that any pre-rendered content can be shown
 | instead of starting the framework, which could cause an exception.
 |
-*/
+ */
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
@@ -29,10 +29,13 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 | this application. We just need to utilize it! We'll simply require it
 | into the script here so we don't need to manually load our classes.
 |
-*/
+ */
 
-require __DIR__.'/../vendor/autoload.php';
-
+if (env('APP_SERVER') == "true") {
+    require __DIR__ . '/../azurlanetierlist/vendor/autoload.php';
+} else {
+    require __DIR__ . '/../vendor/autoload.php';
+}
 /*
 |--------------------------------------------------------------------------
 | Run The Application
@@ -42,9 +45,12 @@ require __DIR__.'/../vendor/autoload.php';
 | the application's HTTP kernel. Then, we will send the response back
 | to this client's browser, allowing them to enjoy our application.
 |
-*/
-
-$app = require_once __DIR__.'/../bootstrap/app.php';
+ */
+if (env('APP_SERVER') == "true") {
+    $app = require_once __DIR__ . '/../azurlanetierlist/bootstrap/app.php';
+} else {
+    $app = require_once __DIR__ . '/../bootstrap/app.php';
+}
 
 $kernel = $app->make(Kernel::class);
 
