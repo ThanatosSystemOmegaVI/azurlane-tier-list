@@ -52,7 +52,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12 col-md-12 col-lg-6 col-xl-6">
-							<img v-bind:src="'/getimagedata/ships/' + this.shipData.image" class="showshipimage rounded-3 m-auto d-block">
+							<img v-bind:src="'/getimagedata/ships/' + this.shipData.image" class="showshipimage rounded-0 m-auto d-block">
 						</div>
 						<div class="col-12 col-md-12 col-lg-6 col-xl-6">
 							<p class="shipnote w-100 m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note }}</p>
