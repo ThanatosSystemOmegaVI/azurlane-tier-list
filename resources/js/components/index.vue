@@ -11,7 +11,7 @@
 
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<div id="addbutton" class="col-12 col-md-12 col-lg-12 col-xl-12 addbutton position-relative">
-					<div class="button-default bg-secondary text-white fw-bold pointer d-flex justify-content-between">
+					<div class="button-default bg-secondary text-white fw-bold pointer d-flex justify-content-between w-100 m-0">
 						<font-awesome-icon class="my-auto" icon="fa-solid fa-angles-left" @click="switchFaction('prev')" />
 						<span> {{ currentFaction }}</span>
 						<font-awesome-icon class="my-auto" icon="fa-solid fa-angles-right" @click="switchFaction('next')" />
