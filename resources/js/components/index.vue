@@ -112,6 +112,7 @@ export default {
 		},
 
 		getShips: function () {
+			console.log(this.currentFaction)
 			this.axios.post("/getships", { "faction": this.currentFaction }).then(response => {
 				// fill all tiers with the correct ships
 				this.ships = response['data']['ships']['notier'];
