@@ -54,7 +54,7 @@
 						<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 							<div class="d-flex flex-row gap-2 justify-content-between">
 								<img v-bind:src="'/getimagedata/ships/' + this.shipData.image" class="showshipimage rounded-3">
-								<p class="shipnote m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note !== "" ? this.shipData.note.replace(/\n/g, "<br>"): "" }}</p>
+								<p class="shipnote m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note }}</p>
 							</div>
 						</div>
 					</div>
