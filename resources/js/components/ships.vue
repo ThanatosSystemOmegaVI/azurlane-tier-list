@@ -112,39 +112,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-6">
-							<div class="row">
-								<div class="col-6">
-									<div class="input-group mb-1">
-										<span class="input-group-text" id="basic-addon1">FP</span>
-										<input type="text" id="FP" v-model="newShip.Performace.FP" class="form-control" placeholder="FP">
-									</div>
-									<div class="input-group mb-1">
-										<span class="input-group-text" id="basic-addon1">HP</span>
-										<input type="text" id="HP" v-model="newShip.Performace.HP" class="form-control" placeholder="HP">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">AA</span>
-										<input type="text" id="AA" v-model="newShip.Performace.AA" class="form-control" placeholder="AA">
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="input-group mb-1">
-										<span class="input-group-text" id="basic-addon1">&nbsp;SP</span>
-										<input type="text" id="SP" v-model="newShip.Performace.SP" class="form-control" placeholder="SP">
-									</div>
-									<div class="input-group mb-1">
-										<span class="input-group-text" id="basic-addon1">AVI</span>
-										<input type="text" id="AVI" v-model="newShip.Performace.AVI" class="form-control" placeholder="AVI">
-									</div>
-									<div class="input-group">
-										<span class="input-group-text" id="basic-addon1">TRP</span>
-										<input type="text" id="TRP" v-model="newShip.Performace.TRP" class="form-control" placeholder="TRP">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
+						<div class="col-12">
 							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
 						</div>
 					</div>
@@ -196,14 +164,6 @@ export default {
 				rarity: "",
 				faction: "",
 				note: "",
-				Performace: {
-					FP: 0,
-					HP: 0,
-					AA: 0,
-					SP: 0,
-					AVI: 0,
-					TRP: 0,
-				},
 			},
 		}
 	},
@@ -394,14 +354,6 @@ export default {
 				rarity: this.newShip.rarity,
 				faction: this.newShip.faction,
 				note: "",
-				Performace: {
-					FP: 0,
-					HP: 0,
-					AA: 0,
-					SP: 0,
-					AVI: 0,
-					TRP: 0,
-				},
 			}
 		}
 	}
