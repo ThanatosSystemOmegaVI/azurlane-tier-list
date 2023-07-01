@@ -392,7 +392,7 @@ export default {
 				name: "",
 				type: "",
 				rarity: "",
-				faction: "",
+				faction: this.newShip.faction,
 				note: "",
 				Performace: {
 					FP: 0,
