@@ -54,13 +54,8 @@
 						<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 							<div class="d-flex flex-row gap-2 justify-content-between">
 								<img v-bind:src="'/getimagedata/ships/' + this.shipData.image" class="showshipimage rounded-3">
-								<div class="d-flex flex-wrap w-100 gap-2 rounded-3" id="chart"></div>
+								<p class="shipnote m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note }}</p>
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-12 col-md-12 col-lg-12 col-xl-12" v-if="this.shipData.note!==''">
-							<p class="shipnote m-0 mt-2 rounded-1 bg-white">{{ this.shipData.note }}</p>
 						</div>
 					</div>
 				</div>
@@ -72,7 +67,6 @@
 <script>
 import '../../css/ships.css';
 import '../../css/index.css';
-import 'https://cdn.jsdelivr.net/npm/apexcharts';
 export default {
 	name: "index",
 	data() {
@@ -130,31 +124,7 @@ export default {
 			this.shipData = Object.assign({}, ship);
 			this.shipData.Performace = JSON.parse(this.shipData.Performace);
 			this.showShip = true;
-			setTimeout(()=>{
-				this.loadChart(this.shipData.Performace);
-			},100)
 		},
-
-		loadChart: function (Performace) {
-			let Element = document.getElementById('chart');
-			var options = {
-				chart: {
-					type: 'radar',
-					height: 300,
-				},
-				series: [
-					{
-						data: [parseInt(Performace.FP),  parseInt(Performace.AA), parseInt(Performace.SP), parseInt(Performace.AVI), parseInt(Performace.TRP)]
-					}
-				],
-				xaxis: {
-					categories: ["FP","AA", "SP", "AVI", "TRP"]
-				}
-			}
-			Element.innerHTML = "";
-			var chart = new ApexCharts(Element, options)
-			chart.render()
-		}
 	}
 }
 
