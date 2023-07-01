@@ -33,7 +33,7 @@ import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus, faXmark, faPen, faTrash, faFloppyDisk, faAnglesRight, faAnglesLeft	);
+library.add(faLock, faAt, faArrowRightToBracket, faCircleUser, faPlus, faXmark, faPen, faTrash, faFloppyDisk, faAnglesRight, faAnglesLeft);
 
 // vars
 const axiosInstance = axios.create({
