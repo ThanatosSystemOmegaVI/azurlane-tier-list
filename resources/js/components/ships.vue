@@ -113,7 +113,7 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<textarea id="note" class="form-control h-100" v-model="newShip.note" placeholder="Note"></textarea>
+							<textarea id="note" class="form-control h-100" v-model="newShip.note" rows="7" placeholder="Note"></textarea>
 						</div>
 					</div>
 					<div class="row">
