@@ -391,7 +391,7 @@ export default {
 				image: "",
 				name: "",
 				type: "",
-				rarity: "",
+				rarity: this.newShip.rarity,
 				faction: this.newShip.faction,
 				note: "",
 				Performace: {
