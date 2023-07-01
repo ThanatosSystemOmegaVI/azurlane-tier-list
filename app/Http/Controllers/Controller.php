@@ -12,7 +12,7 @@ class Controller extends BaseController
 
     protected function getBasepath()
     {
-        if (env('APP_SERVER') === "true") {
+        if (env('APP_SERVER') == "true") {
             return getcwd() . "/../azurlanetierlist/data";
         } else {
             return getcwd() . "/../data";
