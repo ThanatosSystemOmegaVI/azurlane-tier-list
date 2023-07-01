@@ -10,7 +10,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-	protected function getBasepath(){
-		return getcwd() . "/../azurlanetierlist/data";
-	}
+    protected function getBasepath()
+    {
+        if (env('APP_SERVER') === "true") {
+            return getcwd() . "/../azurlanetierlist/data";
+        } else {
+            return getcwd() . "/../data";
+        }
+    }
 }

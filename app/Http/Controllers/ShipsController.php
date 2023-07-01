@@ -22,7 +22,10 @@ class ShipsController extends Controller
 
     public function getShips(Request $request)
     {
-        $AllShips = Ships::orderBy('rarity')->orderBy('name')->get();
+        $faction = $request->filled('faction') ? $request->get('faction') : "";
+        $where = $faction === "Iris Orthodoxy" ? ['Iris Libre', 'Vichya Dominion'] : [$faction];
+
+		$AllShips = Ships::whereIn('faction', $where)->orderBy('rarity')->orderBy('name')->get();
         $ships = [];
         if (!empty($AllShips)) {
             $AllShips = $AllShips->toArray();

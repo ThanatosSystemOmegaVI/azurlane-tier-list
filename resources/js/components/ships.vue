@@ -5,7 +5,14 @@
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<!-- ------------------------------------- Add ship button ------------------------------------- -->
 				<div class="row">
-					<div id="addbutton" class="offset-6 col-6 offset-md-6 col-md-6 offset-lg-8 col-lg-4 offset-xl-9 col-xl-3 addbutton position-relative" @click="addShip()">
+					<div id="addbutton" class="col-12 col-md-12 col-lg-6 col-xl-6 addbutton position-relative">
+						<div class="button-default bg-secondary text-white fw-bold pointer d-flex justify-content-between">
+							<font-awesome-icon class="my-auto" icon="fa-solid fa-angles-left" @click="switchFaction('prev')" />
+							<span> {{ currentFaction }}</span>
+							<font-awesome-icon class="my-auto" icon="fa-solid fa-angles-right" @click="switchFaction('next')" />
+						</div>
+					</div>
+					<div id="addbutton" class="col-12 col-md-12 offset-lg-2 col-lg-4 offset-xl-2 col-xl-4 addbutton position-relative" @click="addShip()">
 						<div class="button-default button-slanted bg-secondary text-white fw-bold pointer">
 							<span class="button-slanted-content"><font-awesome-icon icon="fa-solid fa-plus" /> Add Ship</span>
 						</div>
@@ -15,7 +22,8 @@
 				<div class="row">
 					<div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div id="shiplist" class="shiplist d-flex gap-2">
-							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')" v-bind:id="ship.id">
+							<div class="ship" v-for="ship in ships" draggable @dragstart="startDrag($event, ship, 'ships')"
+								v-bind:id="ship.id">
 								<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
 								<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
@@ -32,15 +40,20 @@
 			<!-- ------------------------------------- tier list with draggable items  ------------------------------------- -->
 			<div class="col-12 col-md-12 offset-lg-1 col-lg-10 offset-xl-1 col-xl-10">
 				<div class="tiers bg-dark">
-					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems" v-bind:style="'background-color:' + tier.color">
+					<div class="d-flex flex-row w-100 my-1" v-for="tier in tieritems"
+						v-bind:style="'background-color:' + tier.color">
 						<!-- tier name -->
 						<div class="tiername text-white position-relative">
 							<p class="position-absolute">{{ tier.name }}</p>
 						</div>
 						<!-- tier data -->
-						<div class="w-100 flex-wrap tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)" @dragover.prevent @dragenter.prevent>
-							<div class="ship" v-for="ship in tier.items" draggable @dragstart="startDrag($event, ship, tier.name)" v-bind:id="ship.id">
+						<div class="w-100 flex-wrap tierdata drop-zone d-flex gap-1" @drop="onDrop($event, tier.name)"
+							@dragover.prevent @dragenter.prevent>
+							<div class="ship" v-for="ship in tier.items" draggable
+								@dragstart="startDrag($event, ship, tier.name)" v-bind:id="ship.id">
 								<div v-bind:class="'d-flex flex-column position-relative shipborder ' + ship.rarity">
+									<font-awesome-icon icon="fa-solid fa-pen" class="editShip" @click="editShip(ship)" />
+									<font-awesome-icon icon="fa-solid fa-trash" class="deleteShip" @click="deleteShip(ship)" />
 									<img v-bind:src="'/getimagedata/ships/' + ship.image" class="shipimage">
 									<span class="shipname">{{ ship.name }}</span>
 									<img v-bind:src="'/getimagedata/shiptypes/' + ship.type + '.png'" class="position-absolute shipicon">
@@ -172,7 +185,9 @@ export default {
 			// add ship select data
 			shipRarity: ['Common', 'Rare', 'Elite', 'Super rare', 'Ultra'],
 			shipType: ['DD', 'CL', 'CA', 'BB', 'CB', 'CV', 'AR', 'SS', 'Misc'],
-			shipFaction: ['Iris Libre', 'Vichya Dominion'],
+			shipFaction: ["Iris Libre", "Vichya Dominion","Eagle Union", "Royal Navy", "Sakura Empire", "Iron Blood", "Dragon Empery", "Northern Parliament", "Sardegna Empire"],
+			factions: ["Iris Orthodoxy", "Eagle Union", "Royal Navy", "Sakura Empire", "Iron Blood", "Dragon Empery", "Northern Parliament", "Sardegna Empire"],
+			currentFaction: "Iris Orthodoxy",
 			// new ship data 
 			newShip: {
 				image: "",
@@ -189,7 +204,7 @@ export default {
 					AVI: 0,
 					TRP: 0,
 				},
-			}
+			},
 		}
 	},
 
@@ -199,6 +214,20 @@ export default {
 	},
 
 	methods: {
+		switchFaction(direction) {
+			let CurrentIndex = this.factions.indexOf(this.currentFaction);
+			let newIndex;
+			if (direction == "next") {
+				newIndex = CurrentIndex + 1;
+				newIndex = newIndex > (this.factions.length - 1) ? 0 : newIndex;
+			} else { //prev
+				newIndex = CurrentIndex - 1
+				newIndex = newIndex < 0 ? (this.factions.length - 1) : newIndex;
+			}
+			this.currentFaction = this.factions[newIndex];
+			this.getShips();
+		},
+
 		startDrag(evt, item, originList) {
 			evt.dataTransfer.dropEffect = 'move';
 			evt.dataTransfer.effectAllowed = 'move';
@@ -343,7 +372,7 @@ export default {
 		},
 
 		getShips: function () {
-			this.axios.post("/getships", {}).then(response => {
+			this.axios.post("/getships", { "faction": this.currentFaction }).then(response => {
 				// fill all tiers with the correct ships
 				this.ships = response['data']['ships']['notier'];
 				this.tieritems["S"]['items'] = response['data']['ships']["S"] !== undefined ? response['data']['ships']["S"] : [];
@@ -353,7 +382,6 @@ export default {
 				this.tieritems["D"]['items'] = response['data']['ships']["D"] !== undefined ? response['data']['ships']["D"] : [];
 				this.tieritems["E"]['items'] = response['data']['ships']["E"] !== undefined ? response['data']['ships']["E"] : [];
 				this.tieritems["F"]['items'] = response['data']['ships']["F"] !== undefined ? response['data']['ships']["F"] : [];
-				console.log(this.tieritems["S"]['items'])
 			});
 		},
 
