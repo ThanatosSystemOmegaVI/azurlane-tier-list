@@ -287,7 +287,6 @@ export default {
 				this.refreshInputs();
 				this.showAddship = true;
 				this.editShipID = ship.id;
-				ship.Performace = JSON.parse(ship.Performace);
 				this.newShip = Object.assign({}, ship);
 			}
 		},
