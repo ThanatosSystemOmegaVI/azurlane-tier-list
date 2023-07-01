@@ -1,12 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import Home from '@/components/index.vue';
+import index from '@/components/index.vue';
 let authenticated = sessionStorage.email !== undefined && sessionStorage.email !== null && sessionStorage.email !== "" && sessionStorage.email.length > 0 ? true : false;
 export const routes = [
 	{
-		name: 'home',
+		name: 'index',
 		path: '/',
-		component: Home
+		component: index
 	},
 	{
 		name: 'login',
@@ -22,7 +22,7 @@ export const routes = [
 	{
 		name: '404',
 		path: "/:pathMatch(.*)*",
-		component: Home
+		component: index
 	}
 ];
 
