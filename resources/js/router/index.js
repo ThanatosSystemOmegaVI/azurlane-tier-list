@@ -1,17 +1,17 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-// import Home from '@/components/home.vue';
+import Home from '@/components/index.vue';
 let authenticated = sessionStorage.email !== undefined && sessionStorage.email !== null && sessionStorage.email !== "" && sessionStorage.email.length > 0 ? true : false;
 export const routes = [
 	{
 		name: 'home',
 		path: '/',
-		component: () => import('@/components/home.vue'),
+		component: Home
 	},
 	{
 		name: 'login',
 		path: '/login',
-		component: () => import('@/components/login.vue'),
+		component: () => import('@/components/login.vue')
 	},
 	{
 		name: 'ships',
@@ -22,7 +22,7 @@ export const routes = [
 	{
 		name: '404',
 		path: "/:pathMatch(.*)*",
-		component: () => import('@/components/home.vue'),
+		component: Home
 	}
 ];
 
