@@ -1,0 +1,67 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-0245fd1c.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/img/azurlanelogo.webp": {
+    "file": "assets/azurlanelogo-777f2a35.webp",
+    "src": "resources/img/azurlanelogo.webp"
+  },
+  "resources/img/bg6.webp": {
+    "file": "assets/bg6-0a54578b.webp",
+    "src": "resources/img/bg6.webp"
+  },
+  "resources/img/draw2.svg": {
+    "file": "assets/draw2-05a2142f.svg",
+    "src": "resources/img/draw2.svg"
+  },
+  "resources/img/logo_banner_clear.png": {
+    "file": "assets/logo_banner_clear-3b1264e0.png",
+    "src": "resources/img/logo_banner_clear.png"
+  },
+  "resources/img/tierlisttext.webp": {
+    "file": "assets/tierlisttext-92de9725.webp",
+    "src": "resources/img/tierlisttext.webp"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-69928813.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/logo_banner_clear-3b1264e0.png",
+      "assets/azurlanelogo-777f2a35.webp",
+      "assets/tierlisttext-92de9725.webp"
+    ],
+    "css": [
+      "assets/app-69928813.css"
+    ],
+    "dynamicImports": [
+      "resources/js/components/login.vue",
+      "resources/js/components/ships.vue"
+    ],
+    "file": "assets/app-22e979f1.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/components/login.vue": {
+    "assets": [
+      "assets/draw2-05a2142f.svg"
+    ],
+    "file": "assets/login-5ee000a1.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/login.vue"
+  },
+  "resources/js/components/ships.vue": {
+    "file": "assets/ships-638e5f58.js",
+    "imports": [
+      "resources/js/app.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/ships.vue"
+  }
+}
