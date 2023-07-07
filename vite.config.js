@@ -10,4 +10,7 @@ export default defineConfig({
 			refresh: true,
 		}),
 	],
+  	// server:{ 
+    // 	origin:"5.254.117.204",
+  	// }
 });
