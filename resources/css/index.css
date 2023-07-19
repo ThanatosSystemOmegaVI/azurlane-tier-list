@@ -76,3 +76,7 @@
 .bg.Ultra {
 	background-image: linear-gradient(to bottom right, #ffeabc 0%, #ffd2bc 15%, #ffc2f5 30%, #c8b4ff 50%, #aaffcc 100%);
 }
+
+.bg.Meta {
+	background-image: linear-gradient(to bottom right, #242424da 0%, #943e16e5 15%, #242424da 30%, #943e16e5 50%, #242424da 100%);
+}

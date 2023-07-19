@@ -108,6 +108,12 @@
 	border-image-slice: 1;
 }
 
+.shipborder.Meta {
+	border-image: linear-gradient(to bottom right, #000 0%, #d44a0a 20%, #000 60%, #d44a0a 70%, #000 100%);
+	background-image: linear-gradient(to bottom right, #242424da 0%, #943e16e5 15%, #242424da 30%, #943e16e5 50%, #242424da 100%);
+	border-image-slice: 1;
+}
+
 /* Ship details */
 .shipimage {
 	height: var(--shipImageheight);

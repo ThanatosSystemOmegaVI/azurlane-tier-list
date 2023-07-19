@@ -151,7 +151,7 @@ export default {
 			showAddship: false,
 			editShipID: 0,
 			// add ship select data
-			shipRarity: ['Common', 'Rare', 'Elite', 'Super rare', 'Ultra'],
+			shipRarity: ['Common', 'Rare', 'Elite', 'Super rare', 'Meta', 'Ultra'],
 			shipType: ['DD', 'CL', 'CA', 'BB', 'CB', 'CV', 'AR', 'SS', 'Misc'],
 			shipFaction: ["Iris Libre", "Vichya Dominion","Eagle Union", "Royal Navy", "Sakura Empire", "Iron Blood", "Dragon Empery", "Northern Parliament", "Sardegna Empire"],
 			factions: ["Iris Orthodoxy", "Eagle Union", "Royal Navy", "Sakura Empire", "Iron Blood", "Dragon Empery", "Northern Parliament", "Sardegna Empire"],
